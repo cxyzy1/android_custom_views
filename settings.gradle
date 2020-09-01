@@ -1,3 +1,4 @@
+include ':bubblefloat'
 include ':dashboardview'
 include ':qqstepview'
 include ':waveprogress'
