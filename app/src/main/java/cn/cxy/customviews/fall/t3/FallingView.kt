@@ -8,12 +8,12 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewTreeObserver.OnPreDrawListener
-import cn.cxy.customviews.fall.t4.FallObject
+import cn.cxy.customviews.fall.t5.FallObject
 import kotlin.math.min
 
 
 /**
- * 圆点飘落，每次降落前x坐标会改变
+ * 大量圆点飘落
  */
 class FallingView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
     private var mViewWidth = 0
@@ -84,7 +84,7 @@ class FallingView(context: Context, attrs: AttributeSet?) : View(context, attrs)
             override fun onPreDraw(): Boolean {
                 viewTreeObserver.removeOnPreDrawListener(this)
                 for (i in 0 until num) {
-                    val newFallObject = FallObject(fallObject.builder, mViewWidth, mViewHeight)
+                    val newFallObject = FallObject(fallObject.mBuilder, mViewWidth, mViewHeight)
                     fallObjects.add(newFallObject)
                 }
                 return true

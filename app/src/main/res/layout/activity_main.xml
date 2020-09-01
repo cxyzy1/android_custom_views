@@ -7,7 +7,7 @@
     android:background="#0D8FF6"
     tools:context=".MainActivity">
 
-    <cn.cxy.customviews.fall.t3.FallingView
+    <cn.cxy.customviews.fall.t5.FallingView
         android:id="@+id/view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
