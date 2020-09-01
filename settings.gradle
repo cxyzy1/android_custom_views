@@ -1,2 +1,4 @@
+include ':waveprogress'
+include ':snowfall'
 include ':app'
 rootProject.name = "CustomViews"

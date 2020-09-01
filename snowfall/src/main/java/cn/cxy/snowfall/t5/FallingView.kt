@@ -9,8 +9,8 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.ViewTreeObserver.OnPreDrawListener
 import androidx.core.content.ContextCompat
-import cn.cxy.customviews.R
 import cn.cxy.customviews.fall.t6.FallObject
+import cn.cxy.snowfall.R
 import kotlin.math.min
 
 
