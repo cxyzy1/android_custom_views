@@ -1,3 +1,4 @@
+include ':dashboardview'
 include ':qqstepview'
 include ':waveprogress'
 include ':snowfall'
