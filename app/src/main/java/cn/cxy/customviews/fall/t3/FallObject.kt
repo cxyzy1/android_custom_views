@@ -1,4 +1,4 @@
-package cn.cxy.customviews.fall.type3
+package cn.cxy.customviews.fall.t3
 
 import android.graphics.Bitmap
 import android.graphics.Canvas

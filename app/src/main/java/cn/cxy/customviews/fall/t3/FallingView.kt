@@ -1,4 +1,4 @@
-package cn.cxy.customviews.fall.type3
+package cn.cxy.customviews.fall.t3
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -8,13 +8,14 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewTreeObserver.OnPreDrawListener
+import cn.cxy.customviews.fall.t4.FallObject
 import kotlin.math.min
 
 
 /**
  * 圆点飘落，每次降落前x坐标会改变
  */
-class FallingView3(context: Context, attrs: AttributeSet?) : View(context, attrs) {
+class FallingView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
     private var mViewWidth = 0
     private var mViewHeight = 0
     private val defaultWidth = 600 //默认宽度

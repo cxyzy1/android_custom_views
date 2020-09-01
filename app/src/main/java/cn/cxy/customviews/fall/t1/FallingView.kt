@@ -1,4 +1,4 @@
-package cn.cxy.customviews.fall
+package cn.cxy.customviews.fall.t1
 
 import android.content.Context
 import android.graphics.Canvas
@@ -11,7 +11,7 @@ import kotlin.math.min
 /**
  * 圆点飘落
  */
-class FallingView1(context: Context, attrs: AttributeSet?) : View(context, attrs) {
+class FallingView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
     private var viewWidth = 0
     private var viewHeight = 0
     private var mPaint = Paint()
