@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#0D8FF6"
     tools:context=".MainActivity">
 
-    <cn.cxy.customviews.CustomTextViewWithClick
+    <cn.cxy.customviews.fall.type3.FallingView3
         android:id="@+id/view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
