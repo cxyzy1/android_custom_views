@@ -151,11 +151,7 @@ class FallObject {
          * @param isWindChange 在物体下落过程中风的风向和风力是否会产生随机变化
          * @return
          */
-        fun setWind(
-            level: Int,
-            isWindRandom: Boolean,
-            isWindChange: Boolean
-        ): Builder {
+        fun setWind(level: Int, isWindRandom: Boolean, isWindChange: Boolean): Builder {
             this.initWindLevel = level
             this.isWindRandom = isWindRandom
             this.isWindChange = isWindChange
