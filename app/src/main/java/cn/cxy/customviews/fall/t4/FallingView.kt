@@ -64,7 +64,6 @@ class FallingView(context: Context, attrs: AttributeSet?) : View(context, attrs)
         super.onDraw(canvas)
         if (fallObjects.size > 0) {
             for (i in 0 until fallObjects.size) {
-                //然后进行绘制
                 fallObjects[i].drawObject(canvas)
             }
             // 隔一段时间重绘一次, 动画效果
