@@ -1,4 +1,4 @@
-package cn.cxy.customviews.fall.t5
+package cn.cxy.customviews.fall.t6
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewTreeObserver.OnPreDrawListener
 import androidx.core.content.ContextCompat
 import cn.cxy.customviews.R
-import cn.cxy.customviews.fall.t6.FallObject
 import kotlin.math.min
 
 
@@ -35,7 +34,11 @@ class FallingView(context: Context, attrs: AttributeSet?) : View(context, attrs)
         bitmapCanvas.drawCircle(25f, 25f, 25f, snowPaint);
 
         val builder = FallObject.Builder(ContextCompat.getDrawable(context, R.drawable.ic_snow)!!)
-        val fallObject = builder.setSpeed(10,true).setSize(50, 50,true).build()
+        val fallObject = builder
+            .setSpeed(7, true)
+            .setSize(50, 50, true)
+            .setWind(5, true, true)
+            .build()
 
         addFallObject(fallObject, 50)
     }

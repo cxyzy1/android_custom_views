@@ -8,7 +8,7 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewTreeObserver.OnPreDrawListener
-import cn.cxy.customviews.fall.t5.FallObject
+import cn.cxy.customviews.fall.t6.FallObject
 import kotlin.math.min
 
 

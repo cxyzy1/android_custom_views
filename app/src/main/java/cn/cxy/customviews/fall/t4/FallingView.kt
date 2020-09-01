@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewTreeObserver.OnPreDrawListener
 import androidx.core.content.ContextCompat
 import cn.cxy.customviews.R
-import cn.cxy.customviews.fall.t5.FallObject
+import cn.cxy.customviews.fall.t6.FallObject
 import kotlin.math.min
 
 
