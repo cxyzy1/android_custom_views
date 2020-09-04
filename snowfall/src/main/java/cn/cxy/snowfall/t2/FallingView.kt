@@ -1,4 +1,4 @@
-package cn.cxy.customviews.fall.t2
+package cn.cxy.snowfall.t2
 
 import android.content.Context
 import android.graphics.Canvas

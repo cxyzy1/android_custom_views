@@ -1,4 +1,4 @@
-package cn.cxy.customviews.fall.t5
+package cn.cxy.snowfall.t5
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -9,7 +9,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.ViewTreeObserver.OnPreDrawListener
 import androidx.core.content.ContextCompat
-import cn.cxy.customviews.fall.t6.FallObject
+import cn.cxy.snowfall.t6.FallObject
 import cn.cxy.snowfall.R
 import kotlin.math.min
 

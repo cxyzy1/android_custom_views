@@ -1,4 +1,4 @@
-package cn.cxy.customviews.fall.t5
+package cn.cxy.snowfall.t5
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -63,7 +63,7 @@ class FallObject {
             val r: Float = (random.nextInt(10) + 1) * 0.1f
             val rW: Float = r * mBuilder.bitmap.width
             val rH: Float = r * mBuilder.bitmap.height
-            cn.cxy.customviews.fall.t6.changeBitmapSize(mBuilder.bitmap, rW.toInt(), rH.toInt())
+            cn.cxy.snowfall.t6.changeBitmapSize(mBuilder.bitmap, rW.toInt(), rH.toInt())
         } else {
             mBuilder.bitmap
         }
@@ -126,7 +126,7 @@ class FallObject {
         }
 
         fun setSize(w: Int, h: Int): Builder {
-            bitmap = cn.cxy.customviews.fall.t6.changeBitmapSize(bitmap, w, h)
+            bitmap = cn.cxy.snowfall.t6.changeBitmapSize(bitmap, w, h)
             return this
         }
 
@@ -138,7 +138,7 @@ class FallObject {
          * @return
          */
         fun setSize(w: Int, h: Int, isRandomSize: Boolean): Builder {
-            bitmap = cn.cxy.customviews.fall.t6.changeBitmapSize(bitmap, w, h)
+            bitmap = cn.cxy.snowfall.t6.changeBitmapSize(bitmap, w, h)
             isSizeRandom = isRandomSize
             return this
         }
