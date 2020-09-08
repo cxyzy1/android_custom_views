@@ -33,7 +33,6 @@ class StarViewWithAnimation(context: Context, attrs: AttributeSet? = null) :
     private fun drawStar(canvas: Canvas) {
         percentValue =100
         var floatPercent = percentValue / 100.toFloat()
-        Log.v("dfafafa",floatPercent.toString()+";"+height / 2.toFloat() * (1 - floatPercent))
 
 //        val blurRadius = width* floatPercent / 20.toFloat()
 //        mPaint.maskFilter = BlurMaskFilter(blurRadius, BlurMaskFilter.Blur.NORMAL)
