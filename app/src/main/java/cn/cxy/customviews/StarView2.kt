@@ -28,13 +28,10 @@ class StarView2(context: Context, attrs: AttributeSet? = null) : View(context, a
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        drawArc(canvas)
+        drawStar(canvas)
     }
 
-    /**
-     * 画圆弧
-     */
-    private fun drawArc(canvas: Canvas) {
+    private fun drawStar(canvas: Canvas) {
         setPaintStyle(true)
         val blurRadius = width / 20.toFloat()
         mPaint.maskFilter = BlurMaskFilter(blurRadius, BlurMaskFilter.Blur.NORMAL)

@@ -12,6 +12,7 @@ class StarView(context: Context, attrs: AttributeSet? = null) : View(context, at
     private val mPaint = Paint()
     private val strokeWidth = dip2px(context, 4f)
     private val path = Path()
+    private val centerRectSize = dip2px(context, 1f)
 
     init {
         //设置实心
@@ -26,23 +27,20 @@ class StarView(context: Context, attrs: AttributeSet? = null) : View(context, at
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        drawArc(canvas)
+        drawStar(canvas)
     }
 
-    /**
-     * 画圆弧
-     */
-    private fun drawArc(canvas: Canvas) {
+    private fun drawStar(canvas: Canvas) {
         setPaintStyle(true)
-        val xxSize = dip2px(context, 1f)
+
         path.moveTo(width / 2.toFloat(), 0f)
-        path.lineTo(width / 2.toFloat() + xxSize, height.toFloat() / 2 - xxSize)
+        path.lineTo(width / 2.toFloat() + centerRectSize, height.toFloat() / 2 - centerRectSize)
         path.lineTo(width.toFloat(), height.toFloat() / 2)
-        path.lineTo(width / 2.toFloat() + xxSize, height.toFloat() / 2 + xxSize)
+        path.lineTo(width / 2.toFloat() + centerRectSize, height.toFloat() / 2 + centerRectSize)
         path.lineTo(width / 2.toFloat(), height.toFloat())
-        path.lineTo(width / 2.toFloat() - xxSize, height.toFloat() / 2 + xxSize)
+        path.lineTo(width / 2.toFloat() - centerRectSize, height.toFloat() / 2 + centerRectSize)
         path.lineTo(0f, height / 2.toFloat())
-        path.lineTo(width / 2.toFloat() - xxSize, height.toFloat() / 2 - xxSize)
+        path.lineTo(width / 2.toFloat() - centerRectSize, height.toFloat() / 2 - centerRectSize)
         path.close()
         canvas.drawPath(path, mPaint)
     }

@@ -33,46 +33,4 @@ open class BaseView(context: Context, attrs: AttributeSet? = null) : View(contex
             context.resources.displayMetrics
         )
     }
-
-//    override fun onDraw(canvas: Canvas) {
-//        super.onDraw(canvas)
-//        mPaint.maskFilter = BlurMaskFilter(blurRadius, BlurMaskFilter.Blur.NORMAL)
-//
-//        canvas.drawCircle(centerX, centerY, radius, mPaint)
-//        // 隔一段时间重绘一次, 动画效果
-////        handler.postDelayed(runnable, intervalTime.toLong())
-//    }
-
-//    //当前是否处于放大过程中
-//    var isIncreasing = false
-//
-//    // 重绘线程
-//    private val runnable = Runnable {
-//        smoothChangeRadiusSize()
-//        invalidate()
-//    }
-
-    /**
-     * 先缩小，后放大，营造呼吸效果
-     */
-//    private fun smoothChangeRadiusSize() {
-//        if (isIncreasing) {
-//            minSize++
-//        } else {
-//            minSize--
-//        }
-//        if (minSize <= 0) {
-//            minSize++
-//            isIncreasing = true
-//        } else if (minSize >= minValue(mWidth, mHeight)) {
-//            minSize--
-//            isIncreasing = false
-//        }
-//        setRadiusSizes(minSize)
-//    }
-//
-//    private fun setRadiusSizes(baseSize: Int) {
-//        radius = baseSize / 4.toFloat()
-//        blurRadius = baseSize / 5.toFloat()
-//    }
 }
