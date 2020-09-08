@@ -1,7 +1,6 @@
 package cn.cxy.customviews
 
 import android.content.Context
-import android.graphics.*
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
@@ -23,16 +22,16 @@ open class BaseView(context: Context, attrs: AttributeSet? = null) : View(contex
         return if (mode == MeasureSpec.EXACTLY) {
             size
         } else {
-            dpToPx(context, defaultSize)
+            dp2Px(context, defaultSize).toInt()
         }
     }
 
-    protected fun dpToPx(context: Context, dp: Int): Int {
+    protected fun dp2Px(context: Context, dp: Int): Float {
         return TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
             dp.toFloat(),
             context.resources.displayMetrics
-        ).toInt()
+        )
     }
 
 //    override fun onDraw(canvas: Canvas) {

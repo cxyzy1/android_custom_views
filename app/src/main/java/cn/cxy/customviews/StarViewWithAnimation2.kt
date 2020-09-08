@@ -3,18 +3,18 @@ package cn.cxy.customviews
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.util.Log
-import android.util.TypedValue
-import android.view.View
 
 /**
- * 星形，带模糊效果,带动画
+ * 星形,带动画
  */
-class StarViewWithAnimation(context: Context, attrs: AttributeSet? = null) :
+class StarViewWithAnimation2(context: Context, attrs: AttributeSet? = null) :
     BaseView(context, attrs) {
     private val mPaint = Paint()
+    private val intervalTime = 50 //重绘间隔时间
     private val path = Path()
-    private val intervalTime = 500 //重绘间隔时间
+    private var centerRectSize = dp2Px(context, 10).toFloat()//中间矩形大小
+    private var isIncreasing = false //当前是否处于放大过程中
+    private var percentValue = 100 //缩放比例
 
     init {
         //设置实心
@@ -25,26 +25,35 @@ class StarViewWithAnimation(context: Context, attrs: AttributeSet? = null) :
         mPaint.isAntiAlias = true
     }
 
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        centerRectSize = mWidth / 20.toFloat()
+    }
+
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         drawStar(canvas)
     }
-    val xxSize = dpToPx(context, 1)
+
+
     private fun drawStar(canvas: Canvas) {
-        percentValue =100
         var floatPercent = percentValue / 100.toFloat()
+        centerRectSize = mWidth*floatPercent / 20.toFloat()
+        path.reset()
 
-//        val blurRadius = width* floatPercent / 20.toFloat()
-//        mPaint.maskFilter = BlurMaskFilter(blurRadius, BlurMaskFilter.Blur.NORMAL)
+        //设置模糊
+        val blurRadius = width* floatPercent / 20.toFloat()
+        mPaint.maskFilter = BlurMaskFilter(blurRadius, BlurMaskFilter.Blur.NORMAL)
 
+        //绘制图形
         path.moveTo(width / 2.toFloat(), height / 2.toFloat() * (1 - floatPercent))
-        path.lineTo(width / 2.toFloat() + xxSize, height.toFloat() / 2 - xxSize)
+        path.lineTo(width / 2.toFloat() + centerRectSize, height.toFloat() / 2 - centerRectSize)
         path.lineTo(width / 2.toFloat() + width / 2.toFloat() * floatPercent, height.toFloat() / 2)
-        path.lineTo(width / 2.toFloat() + xxSize, height.toFloat() / 2 + xxSize)
+        path.lineTo(width / 2.toFloat() + centerRectSize, height.toFloat() / 2 + centerRectSize)
         path.lineTo(width / 2.toFloat(), height / 2.toFloat() + height / 2.toFloat() * floatPercent)
-        path.lineTo(width / 2.toFloat() - xxSize, height.toFloat() / 2 + xxSize)
+        path.lineTo(width / 2.toFloat() - centerRectSize, height.toFloat() / 2 + centerRectSize)
         path.lineTo(width / 2.toFloat() * (1 - floatPercent), height / 2.toFloat())
-        path.lineTo(width / 2.toFloat() - xxSize, height.toFloat() / 2 - xxSize)
+        path.lineTo(width / 2.toFloat() - centerRectSize, height.toFloat() / 2 - centerRectSize)
         path.close()
 
         canvas.drawPath(path, mPaint)
@@ -52,16 +61,12 @@ class StarViewWithAnimation(context: Context, attrs: AttributeSet? = null) :
         handler.postDelayed(runnable, intervalTime.toLong())
     }
 
-    //当前是否处于放大过程中
-    var isIncreasing = false
-    var percentValue = 100
 
     // 重绘线程
     private val runnable = Runnable {
         smoothChangeRadiusSize()
         invalidate()
     }
-
 
     /**
      * 先缩小，后放大，营造呼吸效果
@@ -72,7 +77,7 @@ class StarViewWithAnimation(context: Context, attrs: AttributeSet? = null) :
         } else {
             percentValue--
         }
-        if (percentValue <= 10) {
+        if (percentValue <= 0) {
             percentValue++
             isIncreasing = true
         } else if (percentValue >= 100) {

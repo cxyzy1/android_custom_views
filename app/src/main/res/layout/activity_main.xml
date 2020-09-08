@@ -44,9 +44,13 @@
             android:layout_width="50dp"
             android:layout_height="50dp" />
 
-        <cn.cxy.customviews.StarViewWithAnimation
-            android:layout_width="200dp"
-            android:layout_height="200dp" />
+        <cn.cxy.customviews.StarViewWithAnimation1
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+
+        <cn.cxy.customviews.StarViewWithAnimation2
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
 
         <cn.cxy.customviews.DiamondView2
             android:layout_width="30dp"
