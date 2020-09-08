@@ -17,27 +17,39 @@
             android:layout_height="wrap_content" />
 
         <cn.cxy.customviews.RectView
-            android:layout_width="100dp"
-            android:layout_height="100dp" />
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
 
         <cn.cxy.customviews.CircleView
-            android:layout_width="100dp"
-            android:layout_height="100dp" />
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
 
         <cn.cxy.customviews.TriangleView
-            android:layout_width="100dp"
-            android:layout_height="100dp" />
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
 
         <cn.cxy.customviews.SectorView
-            android:layout_width="100dp"
-            android:layout_height="100dp" />
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
 
         <cn.cxy.customviews.ArcView2
-            android:layout_width="100dp"
+            android:layout_width="50dp"
             android:layout_height="20dp" />
 
+        <cn.cxy.customviews.StarView
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
+
+        <cn.cxy.customviews.StarView2
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
+
+        <cn.cxy.customviews.DiamondView2
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+
         <cn.cxy.customviews.DiamondView
-            android:layout_width="100dp"
-            android:layout_height="100dp" />
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
     </LinearLayout>
 </ScrollView>
