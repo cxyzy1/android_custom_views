@@ -4,6 +4,8 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.util.Log
+import android.util.TypedValue
+import android.view.View
 
 /**
  * 星形，带模糊效果,带动画
@@ -11,9 +13,8 @@ import android.util.Log
 class StarViewWithAnimation(context: Context, attrs: AttributeSet? = null) :
     BaseView(context, attrs) {
     private val mPaint = Paint()
-    private val strokeWidth = dpToPx(context, 4).toFloat()
     private val path = Path()
-    private val intervalTime = 5 //重绘间隔时间
+    private val intervalTime = 500 //重绘间隔时间
 
     init {
         //设置实心
@@ -28,7 +29,7 @@ class StarViewWithAnimation(context: Context, attrs: AttributeSet? = null) :
         super.onDraw(canvas)
         drawStar(canvas)
     }
-
+    val xxSize = dpToPx(context, 1)
     private fun drawStar(canvas: Canvas) {
         percentValue =100
         var floatPercent = percentValue / 100.toFloat()
@@ -36,7 +37,7 @@ class StarViewWithAnimation(context: Context, attrs: AttributeSet? = null) :
 
 //        val blurRadius = width* floatPercent / 20.toFloat()
 //        mPaint.maskFilter = BlurMaskFilter(blurRadius, BlurMaskFilter.Blur.NORMAL)
-        val xxSize = dpToPx(context, 5)
+
         path.moveTo(width / 2.toFloat(), height / 2.toFloat() * (1 - floatPercent))
         path.lineTo(width / 2.toFloat() + xxSize, height.toFloat() / 2 - xxSize)
         path.lineTo(width / 2.toFloat() + width / 2.toFloat() * floatPercent, height.toFloat() / 2)
@@ -51,7 +52,6 @@ class StarViewWithAnimation(context: Context, attrs: AttributeSet? = null) :
         // 隔一段时间重绘一次, 动画效果
         handler.postDelayed(runnable, intervalTime.toLong())
     }
-
 
     //当前是否处于放大过程中
     var isIncreasing = false

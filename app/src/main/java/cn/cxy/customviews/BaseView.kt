@@ -11,10 +11,6 @@ open class BaseView(context: Context, attrs: AttributeSet? = null) : View(contex
     protected var mWidth = defaultSize
     protected var mHeight = defaultSize
 
-    init {
-//        setLayerType(LAYER_TYPE_SOFTWARE, null)
-    }
-
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         mWidth = startMeasure(widthMeasureSpec)
         mHeight = startMeasure(heightMeasureSpec)
