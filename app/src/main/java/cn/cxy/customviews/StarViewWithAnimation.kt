@@ -3,6 +3,7 @@ package cn.cxy.customviews
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.Log
 
 /**
  * 星形，带模糊效果,带动画
@@ -19,8 +20,6 @@ class StarViewWithAnimation(context: Context, attrs: AttributeSet? = null) :
         mPaint.style = Paint.Style.FILL
         //设置颜色
         mPaint.color = Color.BLUE
-        //设置线宽
-        mPaint.strokeWidth = strokeWidth
         // 设置画笔的锯齿效果
         mPaint.isAntiAlias = true
     }
@@ -31,12 +30,12 @@ class StarViewWithAnimation(context: Context, attrs: AttributeSet? = null) :
     }
 
     private fun drawStar(canvas: Canvas) {
-        setPaintStyle(true)
-        percentValue = 50
+        percentValue =100
         var floatPercent = percentValue / 100.toFloat()
+        Log.v("dfafafa",floatPercent.toString()+";"+height / 2.toFloat() * (1 - floatPercent))
 
-        val blurRadius = width* floatPercent / 20.toFloat()
-        mPaint.maskFilter = BlurMaskFilter(blurRadius, BlurMaskFilter.Blur.NORMAL)
+//        val blurRadius = width* floatPercent / 20.toFloat()
+//        mPaint.maskFilter = BlurMaskFilter(blurRadius, BlurMaskFilter.Blur.NORMAL)
         val xxSize = dpToPx(context, 5)
         path.moveTo(width / 2.toFloat(), height / 2.toFloat() * (1 - floatPercent))
         path.lineTo(width / 2.toFloat() + xxSize, height.toFloat() / 2 - xxSize)
@@ -50,7 +49,7 @@ class StarViewWithAnimation(context: Context, attrs: AttributeSet? = null) :
 
         canvas.drawPath(path, mPaint)
         // 隔一段时间重绘一次, 动画效果
-//        handler.postDelayed(runnable, intervalTime.toLong())
+        handler.postDelayed(runnable, intervalTime.toLong())
     }
 
 
@@ -81,9 +80,5 @@ class StarViewWithAnimation(context: Context, attrs: AttributeSet? = null) :
             percentValue--
             isIncreasing = false
         }
-    }
-
-    private fun setPaintStyle(isFilled: Boolean) {
-        mPaint.style = if (isFilled) Paint.Style.FILL else Paint.Style.STROKE
     }
 }
