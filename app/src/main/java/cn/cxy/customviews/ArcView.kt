@@ -12,18 +12,18 @@ import android.view.View
  * 圆弧
  */
 class ArcView(context: Context, attrs: AttributeSet?=null) : View(context, attrs) {
-    private val paint = Paint()
+    private val mPaint = Paint()
     val strokeWidth = dp2Px(context, 4f)
 
     init {
         //设置实心
-        paint.style = Paint.Style.FILL
+        mPaint.style = Paint.Style.FILL
         //设置颜色
-        paint.color = Color.BLUE
+        mPaint.color = Color.BLUE
         //设置线宽
-        paint.strokeWidth = strokeWidth
+        mPaint.strokeWidth = strokeWidth
         // 设置画笔的锯齿效果
-        paint.isAntiAlias = true
+        mPaint.isAntiAlias = true
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -37,10 +37,10 @@ class ArcView(context: Context, attrs: AttributeSet?=null) : View(context, attrs
     private fun drawArc(canvas: Canvas) {
         setPaintStyle(false)
         val rectF = RectF(0f, 0f, width.toFloat() - strokeWidth, height.toFloat() - strokeWidth)
-        canvas.drawArc(rectF, 30f, 120f, false, paint)
+        canvas.drawArc(rectF, 30f, 120f, false, mPaint)
     }
 
     private fun setPaintStyle(isFilled: Boolean) {
-        paint.style = if (isFilled) Paint.Style.FILL else Paint.Style.STROKE
+        mPaint.style = if (isFilled) Paint.Style.FILL else Paint.Style.STROKE
     }
 }

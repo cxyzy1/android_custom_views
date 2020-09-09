@@ -165,13 +165,13 @@ class CircleBarView(context: Context, attrs: AttributeSet?) : View(context, attr
 
         /**
          * 如何处理进度条的颜色
-         * @param paint 进度条画笔
+         * @param mPaint 进度条画笔
          * @param interpolatedTime 从0渐变成1,到1时结束动画
          * @param updateNum 进度条数值
          * @param maxNum 进度条最大值
          */
         fun howTiChangeProgressColor(
-            paint: Paint?,
+            mPaint: Paint?,
             interpolatedTime: Float,
             updateNum: Float,
             maxNum: Float

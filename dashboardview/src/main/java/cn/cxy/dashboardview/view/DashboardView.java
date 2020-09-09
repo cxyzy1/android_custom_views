@@ -362,9 +362,9 @@ public class DashboardView extends View {
 
     }
 
-    private float getTextViewLength(Paint paint, String text) {
+    private float getTextViewLength(Paint mPaint, String text) {
         if (TextUtils.isEmpty(text)) return 0;
-        float textLength = paint.measureText(text);
+        float textLength = mPaint.measureText(text);
         return textLength;
     }
 

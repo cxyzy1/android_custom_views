@@ -30,7 +30,7 @@ public class BubbleView extends View {
     private int colors[] = new int[2];
     private float positions[] = new float[2];
     private int amplitude = 20;//振幅
-    private Paint paint;
+    private Paint mPaint;
     private List<CircleBean> mCircleBeen = new ArrayList<>();
     private List<PathMeasure> pathMeasures = new ArrayList<>();
     private AnimatorSet animatorSet;
@@ -103,11 +103,11 @@ public class BubbleView extends View {
      * 初始化画笔
      */
     private void initPaint() {
-        paint = new Paint();
-        paint.setStrokeWidth(5);
-        paint.setStyle(Paint.Style.FILL);
-        paint.setAlpha(60);
-        paint.setAntiAlias(true);
+        mPaint = new Paint();
+        mPaint.setStrokeWidth(5);
+        mPaint.setStyle(Paint.Style.FILL);
+        mPaint.setAlpha(60);
+        mPaint.setAntiAlias(true);
     }
 
     @Override
@@ -116,9 +116,9 @@ public class BubbleView extends View {
         if (animatorSet.isStarted()) {
             if (mCircleBeen != null) {
                 for (CircleBean circleBean : getCircleBeen()) {
-                    paint.setShader(getColorShader(circleBean));
-                    paint.setAlpha(circleBean.getAlpha());
-                    canvas.drawCircle(circleBean.getP().x, circleBean.getP().y, circleBean.getRadius(), paint);
+                    mPaint.setShader(getColorShader(circleBean));
+                    mPaint.setAlpha(circleBean.getAlpha());
+                    canvas.drawCircle(circleBean.getP().x, circleBean.getP().y, circleBean.getRadius(), mPaint);
                 }
             }
         }

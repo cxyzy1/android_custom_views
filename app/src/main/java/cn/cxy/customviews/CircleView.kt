@@ -9,15 +9,15 @@ import android.view.View
  * 圆形
  */
 class CircleView(context: Context, attrs: AttributeSet?=null) : View(context, attrs) {
-    private val paint = Paint()
+    private val mPaint = Paint()
 
     init {
         //设置实心
-        paint.style = Paint.Style.FILL
+        mPaint.style = Paint.Style.FILL
         //设置颜色
-        paint.color = Color.BLUE
+        mPaint.color = Color.BLUE
         // 设置画笔的锯齿效果
-        paint.isAntiAlias = true
+        mPaint.isAntiAlias = true
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -34,12 +34,12 @@ class CircleView(context: Context, attrs: AttributeSet?=null) : View(context, at
             width.toFloat() / 2,
             height.toFloat() / 2,
             min(width, height).toFloat() / 2,
-            paint
+            mPaint
         )
     }
 
     private fun setPaintStyle(isFilled: Boolean) {
-        paint.style = if (isFilled) Paint.Style.FILL else Paint.Style.STROKE
+        mPaint.style = if (isFilled) Paint.Style.FILL else Paint.Style.STROKE
     }
 
     fun min(value1: Int, value2: Int): Int {

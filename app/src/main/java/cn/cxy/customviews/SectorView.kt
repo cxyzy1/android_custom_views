@@ -9,15 +9,15 @@ import android.view.View
  * 扇形
  */
 class SectorView(context: Context, attrs: AttributeSet?=null) : View(context, attrs) {
-    private val paint = Paint()
+    private val mPaint = Paint()
 
     init {
         //设置实心
-        paint.style = Paint.Style.FILL
+        mPaint.style = Paint.Style.FILL
         //设置颜色
-        paint.color = Color.BLUE
+        mPaint.color = Color.BLUE
         // 设置画笔的锯齿效果
-        paint.isAntiAlias = true
+        mPaint.isAntiAlias = true
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -31,10 +31,10 @@ class SectorView(context: Context, attrs: AttributeSet?=null) : View(context, at
     private fun drawSector(canvas: Canvas, isFilled: Boolean = true) {
         setPaintStyle(isFilled)
         val rectF = RectF(0f, 0f, width.toFloat(), height.toFloat())
-        canvas.drawArc(rectF, 30f, 120f, true, paint)
+        canvas.drawArc(rectF, 30f, 120f, true, mPaint)
     }
 
     private fun setPaintStyle(isFilled: Boolean) {
-        paint.style = if (isFilled) Paint.Style.FILL else Paint.Style.STROKE
+        mPaint.style = if (isFilled) Paint.Style.FILL else Paint.Style.STROKE
     }
 }

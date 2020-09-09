@@ -9,16 +9,16 @@ import android.view.View
  * 三角形
  */
 class TriangleView(context: Context, attrs: AttributeSet?=null) : View(context, attrs) {
-    private val paint = Paint()
+    private val mPaint = Paint()
     private val path = Path()
 
     init {
         //设置实心
-        paint.style = Paint.Style.FILL
+        mPaint.style = Paint.Style.FILL
         //设置颜色
-        paint.color = Color.BLUE
+        mPaint.color = Color.BLUE
         // 设置画笔的锯齿效果
-        paint.isAntiAlias = true
+        mPaint.isAntiAlias = true
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -35,10 +35,10 @@ class TriangleView(context: Context, attrs: AttributeSet?=null) : View(context, 
         path.lineTo(width.toFloat(), height.toFloat())
         path.lineTo(0f, height.toFloat())
         path.close()
-        canvas.drawPath(path, paint)
+        canvas.drawPath(path, mPaint)
     }
 
     private fun setPaintStyle(isFilled: Boolean) {
-        paint.style = if (isFilled) Paint.Style.FILL else Paint.Style.STROKE
+        mPaint.style = if (isFilled) Paint.Style.FILL else Paint.Style.STROKE
     }
 }
