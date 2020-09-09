@@ -12,7 +12,7 @@ class StarViewWithAnimation1(context: Context, attrs: AttributeSet? = null) :
     private val mPaint = Paint()
     private val intervalTime = 50 //重绘间隔时间
     private val path = Path()
-    private var centerRectSize = dp2Px(context, 10)//中间矩形大小
+    private var centerRectSize = dp2Px(context, 10F)//中间矩形大小
     private var isIncreasing = false //当前是否处于放大过程中
     private var percentValue = 100 //缩放比例
 

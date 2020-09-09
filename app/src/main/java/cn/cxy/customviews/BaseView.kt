@@ -6,9 +6,9 @@ import android.util.TypedValue
 import android.view.View
 
 open class BaseView(context: Context, attrs: AttributeSet? = null) : View(context, attrs) {
-    private var defaultSize = 200
-    protected var mWidth = defaultSize
-    protected var mHeight = defaultSize
+    private var defaultSize = 200F
+    protected var mWidth = defaultSize.toInt()
+    protected var mHeight = defaultSize.toInt()
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         mWidth = startMeasure(widthMeasureSpec)
@@ -26,11 +26,5 @@ open class BaseView(context: Context, attrs: AttributeSet? = null) : View(contex
         }
     }
 
-    protected fun dp2Px(context: Context, dp: Int): Float {
-        return TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP,
-            dp.toFloat(),
-            context.resources.displayMetrics
-        )
-    }
+
 }
