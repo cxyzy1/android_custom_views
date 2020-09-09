@@ -11,9 +11,6 @@
         android:gravity="center"
         android:orientation="vertical"
         android:padding="20dp">
-        <cn.cxy.customviews.RunningLineView
-            android:layout_width="match_parent"
-            android:layout_height="10dp"/>
 
         <cn.cxy.customviews.RectView
             android:layout_width="50dp"
