@@ -13,7 +13,7 @@ import android.view.View
  */
 class ArcView(context: Context, attrs: AttributeSet?=null) : View(context, attrs) {
     private val paint = Paint()
-    val strokeWidth = dip2px(context, 4f)
+    val strokeWidth = dp2Px(context, 4f)
 
     init {
         //设置实心
@@ -42,10 +42,5 @@ class ArcView(context: Context, attrs: AttributeSet?=null) : View(context, attrs
 
     private fun setPaintStyle(isFilled: Boolean) {
         paint.style = if (isFilled) Paint.Style.FILL else Paint.Style.STROKE
-    }
-
-    private fun dip2px(context: Context, dpValue: Float): Float {
-        val scale = context.resources.displayMetrics.density
-        return dpValue * scale + 0.5f
     }
 }

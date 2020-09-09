@@ -10,9 +10,9 @@ import android.view.View
  */
 class StarView(context: Context, attrs: AttributeSet? = null) : View(context, attrs) {
     private val mPaint = Paint()
-    private val strokeWidth = dip2px(context, 4f)
+    private val strokeWidth = dp2Px(context, 4f)
     private val path = Path()
-    private val centerRectSize = dip2px(context, 1f)
+    private val centerRectSize = dp2Px(context, 1f)
 
     init {
         //设置实心
@@ -47,10 +47,5 @@ class StarView(context: Context, attrs: AttributeSet? = null) : View(context, at
 
     private fun setPaintStyle(isFilled: Boolean) {
         mPaint.style = if (isFilled) Paint.Style.FILL else Paint.Style.STROKE
-    }
-
-    private fun dip2px(context: Context, dpValue: Float): Float {
-        val scale = context.resources.displayMetrics.density
-        return dpValue * scale + 0.5f
     }
 }

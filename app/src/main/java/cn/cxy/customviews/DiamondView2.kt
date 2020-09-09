@@ -10,7 +10,7 @@ import android.view.View
  */
 class DiamondView2(context: Context, attrs: AttributeSet? = null) : View(context, attrs) {
     private val mPaint = Paint()
-    private val strokeWidth = dip2px(context, 4f)
+    private val strokeWidth = dp2Px(context, 4f)
     private val path = Path()
 
     init {
@@ -47,10 +47,5 @@ class DiamondView2(context: Context, attrs: AttributeSet? = null) : View(context
 
     private fun setPaintStyle(isFilled: Boolean) {
         mPaint.style = if (isFilled) Paint.Style.FILL else Paint.Style.STROKE
-    }
-
-    private fun dip2px(context: Context, dpValue: Float): Float {
-        val scale = context.resources.displayMetrics.density
-        return dpValue * scale + 0.5f
     }
 }

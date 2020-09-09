@@ -46,11 +46,11 @@ class WaveProgressView(
             context.obtainStyledAttributes(attrs, R.styleable.WaveProgressView)
         waveWidth = typedArray.getDimension(
             R.styleable.WaveProgressView_wave_width,
-            DpOrPxUtils.dip2px(context, 25f).toFloat()
+            DpOrPxUtils.dp2Px(context, 25f).toFloat()
         )
         waveHeight = typedArray.getDimension(
             R.styleable.WaveProgressView_wave_height,
-            DpOrPxUtils.dip2px(context, 5f).toFloat()
+            DpOrPxUtils.dp2Px(context, 5f).toFloat()
         )
         waveColor = typedArray.getColor(
             R.styleable.WaveProgressView_wave_color,
@@ -65,7 +65,7 @@ class WaveProgressView(
             Color.GRAY
         )
         typedArray.recycle()
-        defaultSize = DpOrPxUtils.dip2px(context, 100f)
+        defaultSize = DpOrPxUtils.dp2Px(context, 100f)
         waveNum = Math.ceil((defaultSize / waveWidth / 2).toString().toDouble()).toInt()
         waveMovingDistance = 0f
         wavePath = Path()

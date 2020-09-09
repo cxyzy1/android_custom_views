@@ -12,7 +12,7 @@ import android.view.animation.ScaleAnimation
  */
 class StarView2(context: Context, attrs: AttributeSet? = null) : View(context, attrs) {
     private val mPaint = Paint()
-    private val strokeWidth = dip2px(context, 4f)
+    private val strokeWidth = dp2Px(context, 4f)
     private val path = Path()
 
     init {
@@ -35,7 +35,7 @@ class StarView2(context: Context, attrs: AttributeSet? = null) : View(context, a
         setPaintStyle(true)
         val blurRadius = width / 20.toFloat()
         mPaint.maskFilter = BlurMaskFilter(blurRadius, BlurMaskFilter.Blur.NORMAL)
-        val xxSize = dip2px(context, 1f)
+        val xxSize = dp2Px(context, 1f)
         path.moveTo(width / 2.toFloat(), 0f)
         path.lineTo(width / 2.toFloat() + xxSize, height.toFloat() / 2 - xxSize)
         path.lineTo(width.toFloat(), height.toFloat() / 2)
@@ -52,13 +52,7 @@ class StarView2(context: Context, attrs: AttributeSet? = null) : View(context, a
         mPaint.style = if (isFilled) Paint.Style.FILL else Paint.Style.STROKE
     }
 
-    private fun dip2px(context: Context, dpValue: Float): Float {
-        val scale = context.resources.displayMetrics.density
-        return dpValue * scale + 0.5f
-    }
-
-
-     fun anim() {
+    fun anim() {
         val srcView = this
         val animateTime = 2000L
         val scaleDownAnimation = ScaleAnimation(

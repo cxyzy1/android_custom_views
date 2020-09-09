@@ -45,12 +45,12 @@ class CircleBarView(context: Context, attrs: AttributeSet?) : View(context, attr
         sweepAngle = typedArray.getFloat(R.styleable.CircleBarView_sweep_angle, 360f)
         barWidth = typedArray.getDimension(
             R.styleable.CircleBarView_bar_width,
-            DpOrPxUtils.dip2px(context, 10f).toFloat()
+            DpOrPxUtils.dp2Px(context, 10f).toFloat()
         )
         typedArray.recycle()
         progressNum = 0f
         maxNum = 100f
-        defaultSize = DpOrPxUtils.dip2px(context, 100f)
+        defaultSize = DpOrPxUtils.dp2Px(context, 100f)
         mRectF = RectF()
         progressPaint = Paint()
         progressPaint!!.style = Paint.Style.STROKE //只描边，不填充
