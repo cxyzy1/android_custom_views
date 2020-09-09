@@ -12,10 +12,6 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <cn.cxy.customviews.CustomTextViewWithClick
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
         <cn.cxy.customviews.RectView
             android:layout_width="50dp"
             android:layout_height="50dp" />
