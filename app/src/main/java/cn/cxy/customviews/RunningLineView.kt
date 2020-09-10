@@ -58,7 +58,7 @@ class RunningLineView(context: Context, attrs: AttributeSet? = null) : BaseView(
                 drawLine(currentX, currentY, 0, currentY)
                 drawLine(strokeWidth / 2, currentY, strokeWidth / 2, currentY + lineLength - offset)
             }
-        } else if (isOnBottom(currentY, height)) {
+        } else if (isOnBottom(currentY)) {
             val offset = abs(width - currentX)
             if (offset >= lineLength) {
                 drawLine(currentX, currentY, currentX + lineLength, currentY)
@@ -66,7 +66,7 @@ class RunningLineView(context: Context, attrs: AttributeSet? = null) : BaseView(
                 drawLine(currentX, currentY, width, currentY)
                 drawLine(width - strokeWidth / 2, currentY, width - strokeWidth / 2, currentY - lineLength + offset)
             }
-        } else if (isOnRight(currentX, width)) {
+        } else if (isOnRight(currentX)) {
             val offset = abs(currentY)
             if (offset >= lineLength) {
                 drawLine(currentX, currentY, currentX, currentY - lineLength)
@@ -74,7 +74,7 @@ class RunningLineView(context: Context, attrs: AttributeSet? = null) : BaseView(
                 drawLine(currentX, currentY, currentX, 0)
                 drawLine(width - strokeWidth / 2, strokeWidth / 2, width - strokeWidth / 2 - lineLength + offset, strokeWidth / 2)
             }
-        } else if (isOnLeft(currentX, width)) {
+        } else if (isOnLeft(currentX)) {
             val offset = abs(height - currentY)
             if (offset >= lineLength) {
                 drawLine(currentX, currentY, currentX, currentY + lineLength)
@@ -85,16 +85,13 @@ class RunningLineView(context: Context, attrs: AttributeSet? = null) : BaseView(
         }
     }
 
-    private fun isOnLeft(currentX: Int, width: Int) =
-        currentX == strokeWidth / 2
-
-    private fun isOnRight(currentX: Int, width: Int) =
-        currentX == width - strokeWidth / 2
-
-    private fun isOnBottom(currentY: Int, height: Int) =
-        currentY == height - strokeWidth / 2
-
     private fun isOnTop(currentY: Int) = currentY == strokeWidth / 2
+
+    private fun isOnRight(currentX: Int) = currentX == width - strokeWidth / 2
+
+    private fun isOnBottom(currentY: Int) = currentY == height - strokeWidth / 2
+
+    private fun isOnLeft(currentX: Int) = currentX == strokeWidth / 2
 
     private fun drawLine(fromX: Int, fromY: Int, toX: Int, toY: Int) {
         path.moveTo(fromX.toFloat(), fromY.toFloat())
@@ -111,21 +108,21 @@ class RunningLineView(context: Context, attrs: AttributeSet? = null) : BaseView(
                 startPoint.x = width - strokeWidth / 2
                 startPoint.y++
             }
-        } else if (isOnRight(startPoint.x, width)) {
+        } else if (isOnRight(startPoint.x)) {
             if (startPoint.y <= height) {
                 startPoint.y++
             } else {
                 startPoint.y = height - strokeWidth / 2
                 startPoint.x--
             }
-        } else if (isOnBottom(startPoint.y, height)) {
+        } else if (isOnBottom(startPoint.y)) {
             if (startPoint.x >= 0) {
                 startPoint.x--
             } else {
                 startPoint.x = strokeWidth / 2
                 startPoint.y--
             }
-        } else if (isOnLeft(startPoint.x, width)) {
+        } else if (isOnLeft(startPoint.x)) {
             if (startPoint.y >= 0) {
                 startPoint.y--
             } else {
