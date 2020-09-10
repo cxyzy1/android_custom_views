@@ -27,26 +27,16 @@ class RunningLineView(context: Context, attrs: AttributeSet? = null) : BaseView(
     }
 
     var startPoint = Point(0, strokeWidth / 2)
-
+    var lineLength = 200
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         mCanvas = canvas
         path.reset()
-        drawLineFromStartPoint(
-            200,
-            startPoint,
-            width,
-            height
-        )
+        drawLineFromStartPoint(startPoint)
         handler.postDelayed(runnable, intervalTime.toLong())
     }
 
-    private fun drawLineFromStartPoint(
-        lineLength: Int,
-        startPosition: Point,
-        width: Int,
-        height: Int
-    ) {
+    private fun drawLineFromStartPoint(startPosition: Point) {
         val currentX = startPosition.x
         val currentY = startPosition.y
 
