@@ -12,7 +12,7 @@ class RunningLineView(context: Context, attrs: AttributeSet? = null) : BaseView(
     private val mPaint = Paint()
     private val path = Path()
     private val strokeWidth = dp2Px(context, 4f).toInt()
-    private val intervalTime = 5 //重绘间隔时间
+    private val intervalTime = 2 //重绘间隔时间
     private lateinit var mCanvas: Canvas
 
     init {
@@ -26,7 +26,7 @@ class RunningLineView(context: Context, attrs: AttributeSet? = null) : BaseView(
         mPaint.isAntiAlias = true
     }
 
-    var startPoint = Point(width, 0)
+    var startPoint = Point(0, strokeWidth / 2)
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
@@ -53,17 +53,17 @@ class RunningLineView(context: Context, attrs: AttributeSet? = null) : BaseView(
         if (isOnTop(currentY)) {
             val offset = currentX
             if (offset >= lineLength) {
-                drawLine(currentX, currentY + strokeWidth / 2, currentX - lineLength, currentY + strokeWidth / 2)
+                drawLine(currentX, currentY, currentX - lineLength, currentY)
             } else {
-                drawLine(currentX, currentY + strokeWidth / 2,0, currentY + strokeWidth / 2)
+                drawLine(currentX, currentY, 0, currentY)
                 drawLine(strokeWidth / 2, currentY, strokeWidth / 2, currentY + lineLength - offset)
             }
         } else if (isOnBottom(currentY, height)) {
             val offset = abs(width - currentX)
             if (offset >= lineLength) {
-                drawLine(currentX, currentY - strokeWidth / 2, currentX + lineLength, currentY - strokeWidth / 2)
+                drawLine(currentX, currentY, currentX + lineLength, currentY)
             } else {
-                drawLine(currentX, currentY - strokeWidth / 2, width, currentY - strokeWidth / 2)
+                drawLine(currentX, currentY, width, currentY)
                 drawLine(width - strokeWidth / 2, currentY, width - strokeWidth / 2, currentY - lineLength + offset)
             }
         } else if (isOnRight(currentX, width)) {
@@ -71,7 +71,7 @@ class RunningLineView(context: Context, attrs: AttributeSet? = null) : BaseView(
             if (offset >= lineLength) {
                 drawLine(currentX, currentY, currentX, currentY - lineLength)
             } else {
-                drawLine(currentX, currentY, currentX,0)
+                drawLine(currentX, currentY, currentX, 0)
                 drawLine(width - strokeWidth / 2, strokeWidth / 2, width - strokeWidth / 2 - lineLength + offset, strokeWidth / 2)
             }
         } else if (isOnLeft(currentX, width)) {
@@ -80,7 +80,7 @@ class RunningLineView(context: Context, attrs: AttributeSet? = null) : BaseView(
                 drawLine(currentX, currentY, currentX, currentY + lineLength)
             } else {
                 drawLine(currentX, currentY, currentX, height - strokeWidth / 2)
-                drawLine(0,height - strokeWidth / 2, lineLength - offset, height - strokeWidth / 2)
+                drawLine(0, height - strokeWidth / 2, lineLength - offset, height - strokeWidth / 2)
             }
         }
     }
@@ -94,7 +94,7 @@ class RunningLineView(context: Context, attrs: AttributeSet? = null) : BaseView(
     private fun isOnBottom(currentY: Int, height: Int) =
         currentY == height - strokeWidth / 2
 
-    private fun isOnTop(currentY: Int) = currentY == 0
+    private fun isOnTop(currentY: Int) = currentY == strokeWidth / 2
 
     private fun drawLine(fromX: Int, fromY: Int, toX: Int, toY: Int) {
         path.moveTo(fromX.toFloat(), fromY.toFloat())
@@ -108,28 +108,28 @@ class RunningLineView(context: Context, attrs: AttributeSet? = null) : BaseView(
             if (startPoint.x <= width) {
                 startPoint.x++
             } else {
-                startPoint.x = width
+                startPoint.x = width - strokeWidth / 2
                 startPoint.y++
             }
         } else if (isOnRight(startPoint.x, width)) {
             if (startPoint.y <= height) {
                 startPoint.y++
             } else {
-                startPoint.y = height
+                startPoint.y = height - strokeWidth / 2
                 startPoint.x--
             }
         } else if (isOnBottom(startPoint.y, height)) {
             if (startPoint.x >= 0) {
                 startPoint.x--
             } else {
-                startPoint.x = 0
+                startPoint.x = strokeWidth / 2
                 startPoint.y--
             }
         } else if (isOnLeft(startPoint.x, width)) {
             if (startPoint.y >= 0) {
                 startPoint.y--
             } else {
-                startPoint.y = 0
+                startPoint.y = strokeWidth / 2
                 startPoint.x++
             }
         }
