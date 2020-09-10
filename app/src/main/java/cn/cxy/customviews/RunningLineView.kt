@@ -40,38 +40,59 @@ class RunningLineView(context: Context, attrs: AttributeSet? = null) : BaseView(
         val currentX = startPosition.x
         val currentY = startPosition.y
 
-        if (isOnTop(currentY)) {
-            val offset = currentX
-            if (offset >= lineLength) {
-                drawLine(currentX, currentY, currentX - lineLength, currentY)
-            } else {
-                drawLine(currentX, currentY, 0, currentY)
-                drawLine(strokeWidth / 2, currentY, strokeWidth / 2, currentY + lineLength - offset)
+        when {
+            isOnTop(currentY) -> {
+                drawOnTop(currentX, currentY)
             }
-        } else if (isOnBottom(currentY)) {
-            val offset = abs(width - currentX)
-            if (offset >= lineLength) {
-                drawLine(currentX, currentY, currentX + lineLength, currentY)
-            } else {
-                drawLine(currentX, currentY, width, currentY)
-                drawLine(width - strokeWidth / 2, currentY, width - strokeWidth / 2, currentY - lineLength + offset)
+            isOnRight(currentX) -> {
+                drawOnRight(currentY, currentX)
             }
-        } else if (isOnRight(currentX)) {
-            val offset = abs(currentY)
-            if (offset >= lineLength) {
-                drawLine(currentX, currentY, currentX, currentY - lineLength)
-            } else {
-                drawLine(currentX, currentY, currentX, 0)
-                drawLine(width - strokeWidth / 2, strokeWidth / 2, width - strokeWidth / 2 - lineLength + offset, strokeWidth / 2)
+            isOnBottom(currentY) -> {
+                drawOnBottom(currentX, currentY)
             }
-        } else if (isOnLeft(currentX)) {
-            val offset = abs(height - currentY)
-            if (offset >= lineLength) {
-                drawLine(currentX, currentY, currentX, currentY + lineLength)
-            } else {
-                drawLine(currentX, currentY, currentX, height - strokeWidth / 2)
-                drawLine(0, height - strokeWidth / 2, lineLength - offset, height - strokeWidth / 2)
+            isOnLeft(currentX) -> {
+                drawOnLeft(currentY, currentX)
             }
+        }
+    }
+
+    private fun drawOnLeft(currentY: Int, currentX: Int) {
+        val offset = abs(height - currentY)
+        if (offset >= lineLength) {
+            drawLine(currentX, currentY, currentX, currentY + lineLength)
+        } else {
+            drawLine(currentX, currentY, currentX, height - strokeWidth / 2)
+            drawLine(0, height - strokeWidth / 2, lineLength - offset, height - strokeWidth / 2)
+        }
+    }
+
+    private fun drawOnRight(currentY: Int, currentX: Int) {
+        val offset = abs(currentY)
+        if (offset >= lineLength) {
+            drawLine(currentX, currentY, currentX, currentY - lineLength)
+        } else {
+            drawLine(currentX, currentY, currentX, 0)
+            drawLine(width - strokeWidth / 2, strokeWidth / 2, width - strokeWidth / 2 - lineLength + offset, strokeWidth / 2)
+        }
+    }
+
+    private fun drawOnBottom(currentX: Int, currentY: Int) {
+        val offset = abs(width - currentX)
+        if (offset >= lineLength) {
+            drawLine(currentX, currentY, currentX + lineLength, currentY)
+        } else {
+            drawLine(currentX, currentY, width, currentY)
+            drawLine(width - strokeWidth / 2, currentY, width - strokeWidth / 2, currentY - lineLength + offset)
+        }
+    }
+
+    private fun drawOnTop(currentX: Int, currentY: Int) {
+        val offset = currentX
+        if (offset >= lineLength) {
+            drawLine(currentX, currentY, currentX - lineLength, currentY)
+        } else {
+            drawLine(currentX, currentY, 0, currentY)
+            drawLine(strokeWidth / 2, currentY, strokeWidth / 2, currentY + lineLength - offset)
         }
     }
 
