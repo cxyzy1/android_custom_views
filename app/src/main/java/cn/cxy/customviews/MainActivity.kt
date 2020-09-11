@@ -12,9 +12,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main2)
 
         runningLineView
-            .setLineWidth(20f)
-            .setStartPosition(0f,0.5f)
+            .setStartPosition(0.2f,0f)
+            .setLineWidth(80f)
             .setStepSize(5)
+            .setLineLength(100f)
             .setLineColorRes(R.color.colorAccent)
             .start()
         startBtn.setOnClickListener {

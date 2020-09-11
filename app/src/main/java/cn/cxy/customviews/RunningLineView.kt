@@ -190,8 +190,8 @@ class RunningLineView(context: Context, attrs: AttributeSet? = null) : BaseView(
     /**
      * 设置线段长度
      */
-    fun setLineLength(_lineLength: Int): RunningLineView {
-        mLineLength = _lineLength
+    fun setLineLength(_lineLength: Float): RunningLineView {
+        mLineLength = dp2Px(context, _lineLength).toInt()
         return this
     }
 
