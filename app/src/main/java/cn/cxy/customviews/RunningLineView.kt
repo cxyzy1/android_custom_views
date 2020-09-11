@@ -8,8 +8,8 @@ import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.Dimension
 import androidx.core.content.ContextCompat
-import java.lang.Exception
 import java.lang.Math.abs
+
 
 /**
  * 移动的线段
@@ -26,7 +26,7 @@ class RunningLineView(context: Context, attrs: AttributeSet? = null) : BaseView(
     private var mLineWidth = dp2Px(context, 4f).toInt()
 
     //线段长度
-    private var mLineLength = 200
+    private var mLineLength = dp2Px(context, 50f).toInt()
 
     //每次移动的距离
     private var mStepSize = 20
@@ -56,10 +56,11 @@ class RunningLineView(context: Context, attrs: AttributeSet? = null) : BaseView(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+        mCanvas = canvas
+        mPath.reset()
+        drawLineFromStartPoint(mStartPosition)
         if (mRunFlag) {
-            mCanvas = canvas
-            mPath.reset()
-            drawLineFromStartPoint(mStartPosition)
+
             handler.postDelayed(runnable, mIntervalTime.toLong())
         }
     }
@@ -141,11 +142,9 @@ class RunningLineView(context: Context, attrs: AttributeSet? = null) : BaseView(
     // 重绘线程
     private val runnable = Runnable {
         if (isOnTop(mStartPosition.y)) {
-            Log.v("fdafafa", "mStartPosition.y:" + mStartPosition.y)
             if (mStartPosition.x <= width) {
                 mStartPosition.x += mStepSize
             } else {
-                Log.v("fdafafa", "ontddddd11111")
                 mStartPosition.x = width - mLineWidth / 2
                 mStartPosition.y += mStepSize
             }
@@ -153,8 +152,6 @@ class RunningLineView(context: Context, attrs: AttributeSet? = null) : BaseView(
             if (mStartPosition.y <= height) {
                 mStartPosition.y += mStepSize
             } else {
-                Log.v("fdafafa", "ontddddd222222")
-
                 mStartPosition.y = height - mLineWidth / 2
                 mStartPosition.x -= mStepSize
             }
@@ -162,7 +159,6 @@ class RunningLineView(context: Context, attrs: AttributeSet? = null) : BaseView(
             if (mStartPosition.x >= 0) {
                 mStartPosition.x -= mStepSize
             } else {
-                Log.v("fdafafa", "ontddddd3333333")
                 mStartPosition.x = mLineWidth / 2
                 mStartPosition.y -= mStepSize
             }
@@ -170,7 +166,6 @@ class RunningLineView(context: Context, attrs: AttributeSet? = null) : BaseView(
             if (mStartPosition.y >= 0) {
                 mStartPosition.y -= mStepSize
             } else {
-                Log.v("fdafafa", "ontddddd4444444")
                 mStartPosition.y = mLineWidth / 2
                 mStartPosition.x += mStepSize
             }
@@ -207,6 +202,17 @@ class RunningLineView(context: Context, attrs: AttributeSet? = null) : BaseView(
      * 设置线段颜色
      */
     fun setLineColorRes(@ColorRes lineColorRes: Int) = setLineColor(ContextCompat.getColor(context, lineColorRes))
+
+    /**
+     * 设置渐变色
+     */
+    fun setGradient(colors: IntArray): RunningLineView {
+        mPaint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP)
+//        val position = floatArrayOf(0.1f, 0.6f, 0.8f)
+        val mShader = LinearGradient(0f, 0f, mLineLength.toFloat(), mLineWidth.toFloat(), colors, null, Shader.TileMode.MIRROR)
+        mPaint.shader = mShader
+        return this
+    }
 
     /**
      * 设置每次移动距离
