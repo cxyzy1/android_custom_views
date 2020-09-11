@@ -3,6 +3,7 @@ package cn.cxy.customviews
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.Log
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.Dimension
@@ -32,6 +33,12 @@ class RunningLineView(context: Context, attrs: AttributeSet? = null) : BaseView(
 
     //起始点
     private var mStartPosition = Point(0, mLineWidth / 2)
+
+    //起始点X坐标所处位置百分比，取值范围：0到1
+    private var mXBias = 0F
+
+    //起始点Y坐标所处位置百分比，取值范围：0到1
+    private var mYBias = 0F
 
     //是否开始绘制并定时刷新
     private var mRunFlag = false
@@ -117,13 +124,13 @@ class RunningLineView(context: Context, attrs: AttributeSet? = null) : BaseView(
         }
     }
 
-    private fun isOnTop(currentY: Int) = currentY == mLineWidth / 2
+    private fun isOnTop(currentY: Int) = currentY <= mLineWidth / 2
 
-    private fun isOnRight(currentX: Int) = currentX == width - mLineWidth / 2
+    private fun isOnRight(currentX: Int) = currentX >= width - mLineWidth / 2
 
-    private fun isOnBottom(currentY: Int) = currentY == height - mLineWidth / 2
+    private fun isOnBottom(currentY: Int) = currentY >= height - mLineWidth / 2
 
-    private fun isOnLeft(currentX: Int) = currentX == mLineWidth / 2
+    private fun isOnLeft(currentX: Int) = currentX <= mLineWidth / 2
 
     private fun drawLine(fromX: Int, fromY: Int, toX: Int, toY: Int) {
         mPath.moveTo(fromX.toFloat(), fromY.toFloat())
@@ -134,9 +141,11 @@ class RunningLineView(context: Context, attrs: AttributeSet? = null) : BaseView(
     // 重绘线程
     private val runnable = Runnable {
         if (isOnTop(mStartPosition.y)) {
+            Log.v("fdafafa", "mStartPosition.y:" + mStartPosition.y)
             if (mStartPosition.x <= width) {
                 mStartPosition.x += mStepSize
             } else {
+                Log.v("fdafafa", "ontddddd11111")
                 mStartPosition.x = width - mLineWidth / 2
                 mStartPosition.y += mStepSize
             }
@@ -144,6 +153,8 @@ class RunningLineView(context: Context, attrs: AttributeSet? = null) : BaseView(
             if (mStartPosition.y <= height) {
                 mStartPosition.y += mStepSize
             } else {
+                Log.v("fdafafa", "ontddddd222222")
+
                 mStartPosition.y = height - mLineWidth / 2
                 mStartPosition.x -= mStepSize
             }
@@ -151,6 +162,7 @@ class RunningLineView(context: Context, attrs: AttributeSet? = null) : BaseView(
             if (mStartPosition.x >= 0) {
                 mStartPosition.x -= mStepSize
             } else {
+                Log.v("fdafafa", "ontddddd3333333")
                 mStartPosition.x = mLineWidth / 2
                 mStartPosition.y -= mStepSize
             }
@@ -158,6 +170,7 @@ class RunningLineView(context: Context, attrs: AttributeSet? = null) : BaseView(
             if (mStartPosition.y >= 0) {
                 mStartPosition.y -= mStepSize
             } else {
+                Log.v("fdafafa", "ontddddd4444444")
                 mStartPosition.y = mLineWidth / 2
                 mStartPosition.x += mStepSize
             }
@@ -168,8 +181,9 @@ class RunningLineView(context: Context, attrs: AttributeSet? = null) : BaseView(
     /**
      * 设置线段宽度
      */
-    fun setLineWidth(@Dimension width: Float): RunningLineView {
-        mLineWidth = dp2Px(context, width).toInt()
+    fun setLineWidth(@Dimension lineWidth: Float): RunningLineView {
+        mLineWidth = dp2Px(context, lineWidth).toInt()
+        mPaint.strokeWidth = mLineWidth.toFloat()
         return this
     }
 
@@ -204,20 +218,39 @@ class RunningLineView(context: Context, attrs: AttributeSet? = null) : BaseView(
 
     /**
      * 设置起始点
-     * 如果_xBias为0或者1，则_yBias可以为0到1之前任何值；
-     * 如果_yBias为0或者1，则_xBias可以为0到1之前任何值。
+     * 如果xBias为0或者1，则yBias可以为0到1之前任何值；
+     * 如果yBias为0或者1，则xBias可以为0到1之前任何值。
      */
-    fun setStartPosition(_xBias: Float, _yBias: Float): RunningLineView {
-        checkParamsForStartPosition(_xBias, _yBias)
-        var xBias = maxValue(_xBias, mLineLength / 2.toFloat())
-        var yBias = maxValue(_yBias, mLineLength / 2.toFloat())
-        mStartPosition = Point((xBias * width).toInt(), (yBias * width).toInt())
+    fun setStartPosition(xBias: Float, yBias: Float): RunningLineView {
+        checkParamsForStartPosition(xBias, yBias)
+        mXBias = xBias
+        mYBias = yBias
         return this
     }
 
+    private fun updateStartPosition() {
+        var xPos = mXBias * width
+        var yPos = mYBias * height
+        if (mYBias == 0f) {
+            yPos = maxValue(mYBias * height, mLineWidth / 2.toFloat())
+        } else if (mYBias == 1f) {
+            yPos = minValue(mYBias * height, height - mLineWidth / 2.toFloat())
+        } else if (mXBias == 0f) {
+            xPos = maxValue(mXBias * width, mLineWidth / 2.toFloat())
+        } else if (mXBias == 1f) {
+            xPos = minValue(mXBias * width, width - mLineWidth / 2.toFloat())
+        }
+
+        mStartPosition = Point(xPos.toInt(), yPos.toInt())
+    }
+
     fun start() {
-        mRunFlag = true
-        postInvalidate()
+        post {
+            //updateStartPosition函数需要使用到width和height，需要等视图完成测量后才能获得,所以整体放到post中调用
+            updateStartPosition()
+            mRunFlag = true
+            invalidate()
+        }
     }
 
     fun stop() {

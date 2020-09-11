@@ -18,6 +18,13 @@ fun minValue(value1: Int, value2: Int): Int {
         value2
 }
 
+fun minValue(value1: Float, value2: Float): Float {
+    return if (value1 <= value2)
+        value1
+    else
+        value2
+}
+
 fun maxValue(value1: Float, value2: Float): Float {
     return if (value1 >= value2)
         value1

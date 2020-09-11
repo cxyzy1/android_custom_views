@@ -13,9 +13,12 @@ class MainActivity : AppCompatActivity() {
 
         runningLineView
             .setLineWidth(20f)
+            .setStartPosition(0f,0.5f)
+            .setStepSize(5)
             .setLineColorRes(R.color.colorAccent)
             .start()
         startBtn.setOnClickListener {
+
         }
         stopBtn.setOnClickListener { runningLineView.stop() }
     }
