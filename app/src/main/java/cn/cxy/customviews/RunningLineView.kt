@@ -3,17 +3,38 @@ package cn.cxy.customviews
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
+import androidx.annotation.Dimension
+import androidx.core.content.ContextCompat
+import java.lang.Exception
 import java.lang.Math.abs
 
 /**
  * 移动的线段
  */
 class RunningLineView(context: Context, attrs: AttributeSet? = null) : BaseView(context, attrs) {
-    private val mPaint = Paint()
-    private val path = Path()
-    private val strokeWidth = dp2Px(context, 4f).toInt()
-    private val intervalTime = 2 //重绘间隔时间
     private lateinit var mCanvas: Canvas
+    private val mPaint = Paint()
+    private val mPath = Path()
+
+    //重绘间隔时间
+    private val mIntervalTime = 10
+
+    //线段宽度
+    private var mLineWidth = dp2Px(context, 4f).toInt()
+
+    //线段长度
+    private var mLineLength = 200
+
+    //每次移动的距离
+    private var mStepSize = 20
+
+    //起始点
+    private var mStartPosition = Point(0, mLineWidth / 2)
+
+    //是否开始绘制并定时刷新
+    private var mRunFlag = false
 
     init {
         //设置实心
@@ -21,19 +42,19 @@ class RunningLineView(context: Context, attrs: AttributeSet? = null) : BaseView(
         //设置颜色
         mPaint.color = Color.BLUE
         //设置线宽
-        mPaint.strokeWidth = strokeWidth.toFloat()
+        mPaint.strokeWidth = mLineWidth.toFloat()
         // 设置画笔的锯齿效果
         mPaint.isAntiAlias = true
     }
 
-    var startPoint = Point(0, strokeWidth / 2)
-    var lineLength = 200
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        mCanvas = canvas
-        path.reset()
-        drawLineFromStartPoint(startPoint)
-        handler.postDelayed(runnable, intervalTime.toLong())
+        if (mRunFlag) {
+            mCanvas = canvas
+            mPath.reset()
+            drawLineFromStartPoint(mStartPosition)
+            handler.postDelayed(runnable, mIntervalTime.toLong())
+        }
     }
 
     private fun drawLineFromStartPoint(startPosition: Point) {
@@ -58,89 +79,164 @@ class RunningLineView(context: Context, attrs: AttributeSet? = null) : BaseView(
 
     private fun drawOnLeft(currentY: Int, currentX: Int) {
         val offset = abs(height - currentY)
-        if (offset >= lineLength) {
-            drawLine(currentX, currentY, currentX, currentY + lineLength)
+        if (offset >= mLineLength) {
+            drawLine(currentX, currentY, currentX, currentY + mLineLength)
         } else {
-            drawLine(currentX, currentY, currentX, height - strokeWidth / 2)
-            drawLine(0, height - strokeWidth / 2, lineLength - offset, height - strokeWidth / 2)
+            drawLine(currentX, currentY, currentX, height - mLineWidth / 2)
+            drawLine(0, height - mLineWidth / 2, mLineLength - offset, height - mLineWidth / 2)
         }
     }
 
     private fun drawOnRight(currentY: Int, currentX: Int) {
         val offset = abs(currentY)
-        if (offset >= lineLength) {
-            drawLine(currentX, currentY, currentX, currentY - lineLength)
+        if (offset >= mLineLength) {
+            drawLine(currentX, currentY, currentX, currentY - mLineLength)
         } else {
             drawLine(currentX, currentY, currentX, 0)
-            drawLine(width - strokeWidth / 2, strokeWidth / 2, width - strokeWidth / 2 - lineLength + offset, strokeWidth / 2)
+            drawLine(width - mLineWidth / 2, mLineWidth / 2, width - mLineWidth / 2 - mLineLength + offset, mLineWidth / 2)
         }
     }
 
     private fun drawOnBottom(currentX: Int, currentY: Int) {
         val offset = abs(width - currentX)
-        if (offset >= lineLength) {
-            drawLine(currentX, currentY, currentX + lineLength, currentY)
+        if (offset >= mLineLength) {
+            drawLine(currentX, currentY, currentX + mLineLength, currentY)
         } else {
             drawLine(currentX, currentY, width, currentY)
-            drawLine(width - strokeWidth / 2, currentY, width - strokeWidth / 2, currentY - lineLength + offset)
+            drawLine(width - mLineWidth / 2, currentY, width - mLineWidth / 2, currentY - mLineLength + offset)
         }
     }
 
     private fun drawOnTop(currentX: Int, currentY: Int) {
         val offset = currentX
-        if (offset >= lineLength) {
-            drawLine(currentX, currentY, currentX - lineLength, currentY)
+        if (offset >= mLineLength) {
+            drawLine(currentX, currentY, currentX - mLineLength, currentY)
         } else {
             drawLine(currentX, currentY, 0, currentY)
-            drawLine(strokeWidth / 2, currentY, strokeWidth / 2, currentY + lineLength - offset)
+            drawLine(mLineWidth / 2, currentY, mLineWidth / 2, currentY + mLineLength - offset)
         }
     }
 
-    private fun isOnTop(currentY: Int) = currentY == strokeWidth / 2
+    private fun isOnTop(currentY: Int) = currentY == mLineWidth / 2
 
-    private fun isOnRight(currentX: Int) = currentX == width - strokeWidth / 2
+    private fun isOnRight(currentX: Int) = currentX == width - mLineWidth / 2
 
-    private fun isOnBottom(currentY: Int) = currentY == height - strokeWidth / 2
+    private fun isOnBottom(currentY: Int) = currentY == height - mLineWidth / 2
 
-    private fun isOnLeft(currentX: Int) = currentX == strokeWidth / 2
+    private fun isOnLeft(currentX: Int) = currentX == mLineWidth / 2
 
     private fun drawLine(fromX: Int, fromY: Int, toX: Int, toY: Int) {
-        path.moveTo(fromX.toFloat(), fromY.toFloat())
-        path.lineTo(toX.toFloat(), toY.toFloat())
-        mCanvas.drawPath(path, mPaint)
+        mPath.moveTo(fromX.toFloat(), fromY.toFloat())
+        mPath.lineTo(toX.toFloat(), toY.toFloat())
+        mCanvas.drawPath(mPath, mPaint)
     }
 
     // 重绘线程
     private val runnable = Runnable {
-        if (isOnTop(startPoint.y)) {
-            if (startPoint.x <= width) {
-                startPoint.x++
+        if (isOnTop(mStartPosition.y)) {
+            if (mStartPosition.x <= width) {
+                mStartPosition.x += mStepSize
             } else {
-                startPoint.x = width - strokeWidth / 2
-                startPoint.y++
+                mStartPosition.x = width - mLineWidth / 2
+                mStartPosition.y += mStepSize
             }
-        } else if (isOnRight(startPoint.x)) {
-            if (startPoint.y <= height) {
-                startPoint.y++
+        } else if (isOnRight(mStartPosition.x)) {
+            if (mStartPosition.y <= height) {
+                mStartPosition.y += mStepSize
             } else {
-                startPoint.y = height - strokeWidth / 2
-                startPoint.x--
+                mStartPosition.y = height - mLineWidth / 2
+                mStartPosition.x -= mStepSize
             }
-        } else if (isOnBottom(startPoint.y)) {
-            if (startPoint.x >= 0) {
-                startPoint.x--
+        } else if (isOnBottom(mStartPosition.y)) {
+            if (mStartPosition.x >= 0) {
+                mStartPosition.x -= mStepSize
             } else {
-                startPoint.x = strokeWidth / 2
-                startPoint.y--
+                mStartPosition.x = mLineWidth / 2
+                mStartPosition.y -= mStepSize
             }
-        } else if (isOnLeft(startPoint.x)) {
-            if (startPoint.y >= 0) {
-                startPoint.y--
+        } else if (isOnLeft(mStartPosition.x)) {
+            if (mStartPosition.y >= 0) {
+                mStartPosition.y -= mStepSize
             } else {
-                startPoint.y = strokeWidth / 2
-                startPoint.x++
+                mStartPosition.y = mLineWidth / 2
+                mStartPosition.x += mStepSize
             }
         }
         invalidate()
     }
+
+    /**
+     * 设置线段宽度
+     */
+    fun setLineWidth(@Dimension width: Float): RunningLineView {
+        mLineWidth = dp2Px(context, width).toInt()
+        return this
+    }
+
+    /**
+     * 设置线段长度
+     */
+    fun setLineLength(_lineLength: Int): RunningLineView {
+        mLineLength = _lineLength
+        return this
+    }
+
+    /**
+     * 设置线段颜色
+     */
+    fun setLineColor(@ColorInt lineColor: Int): RunningLineView {
+        mPaint.color = lineColor
+        return this
+    }
+
+    /**
+     * 设置线段颜色
+     */
+    fun setLineColorRes(@ColorRes lineColorRes: Int) = setLineColor(ContextCompat.getColor(context, lineColorRes))
+
+    /**
+     * 设置每次移动距离
+     */
+    fun setStepSize(stepSize: Int): RunningLineView {
+        mStepSize = stepSize
+        return this
+    }
+
+    /**
+     * 设置起始点
+     * 如果_xBias为0或者1，则_yBias可以为0到1之前任何值；
+     * 如果_yBias为0或者1，则_xBias可以为0到1之前任何值。
+     */
+    fun setStartPosition(_xBias: Float, _yBias: Float): RunningLineView {
+        checkParamsForStartPosition(_xBias, _yBias)
+        var xBias = maxValue(_xBias, mLineLength / 2.toFloat())
+        var yBias = maxValue(_yBias, mLineLength / 2.toFloat())
+        mStartPosition = Point((xBias * width).toInt(), (yBias * width).toInt())
+        return this
+    }
+
+    fun start() {
+        mRunFlag = true
+        postInvalidate()
+    }
+
+    fun stop() {
+        mRunFlag = false
+    }
+
+    private fun checkParamsForStartPosition(xBias: Float, yBias: Float) {
+        if (xBias == 0f || xBias == 1f) {
+            if (yBias < 0f || yBias > 1f) {
+                throw Exception("yBias必须在0和1之间")
+            }
+        } else if (xBias > 0f && xBias < 1f) {
+            if (yBias != 0f && yBias != 1f) {
+                throw Exception("xBias处于0到1之间时，yBias必须为0或1")
+            }
+        } else {
+            throw Exception("xBias必须在0和1之间")
+        }
+    }
+
+
 }
