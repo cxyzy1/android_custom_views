@@ -1,19 +1,18 @@
-package cn.cxy.customviews
+package cn.cxy.customviews.misc
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.RectF
+import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
+import cn.cxy.customviews.util.dp2Px
 
 /**
- * 圆弧
+ * 菱形
  */
-class ArcView(context: Context, attrs: AttributeSet?=null) : View(context, attrs) {
+class DiamondView(context: Context, attrs: AttributeSet? = null) : View(context, attrs) {
     private val mPaint = Paint()
-    val strokeWidth = dp2Px(context, 4f)
+    private val strokeWidth = dp2Px(context, 4f)
+    private val path = Path()
 
     init {
         //设置实心
@@ -35,9 +34,13 @@ class ArcView(context: Context, attrs: AttributeSet?=null) : View(context, attrs
      * 画圆弧
      */
     private fun drawArc(canvas: Canvas) {
-        setPaintStyle(false)
-        val rectF = RectF(0f, 0f, width.toFloat() - strokeWidth, height.toFloat() - strokeWidth)
-        canvas.drawArc(rectF, 30f, 120f, false, mPaint)
+        setPaintStyle(true)
+        path.moveTo(width.toFloat() / 2, 0f)
+        path.lineTo(width.toFloat(), height.toFloat() / 2)
+        path.lineTo(width.toFloat() / 2, height.toFloat())
+        path.lineTo(0f, height.toFloat() / 2)
+        path.close()
+        canvas.drawPath(path, mPaint)
     }
 
     private fun setPaintStyle(isFilled: Boolean) {

@@ -1,9 +1,10 @@
-package cn.cxy.customviews
+package cn.cxy.customviews.misc
 
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
+import cn.cxy.customviews.util.dp2Px
 
 /**
  * 星形

@@ -1,18 +1,18 @@
-package cn.cxy.customviews
+package cn.cxy.customviews.misc
 
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
+import cn.cxy.customviews.util.dp2Px
 
 /**
- * 菱形
+ * 圆弧
  */
-class DiamondView2(context: Context, attrs: AttributeSet? = null) : View(context, attrs) {
+class ArcView2(context: Context, attrs: AttributeSet?=null) : View(context, attrs) {
     private val mPaint = Paint()
     private val strokeWidth = dp2Px(context, 4f)
     private val path = Path()
-
     init {
         //设置实心
         mPaint.style = Paint.Style.FILL
@@ -33,15 +33,9 @@ class DiamondView2(context: Context, attrs: AttributeSet? = null) : View(context
      * 画圆弧
      */
     private fun drawArc(canvas: Canvas) {
-        setPaintStyle(true)
-        val blurRadius = width/10.toFloat()
-        mPaint.maskFilter = BlurMaskFilter(blurRadius, BlurMaskFilter.Blur.NORMAL)
-
-        path.moveTo(width/ 2.toFloat(), height/4.toFloat())
-        path.lineTo(width*3/4.toFloat(), height.toFloat() / 2)
-        path.lineTo(width/ 2.toFloat(), height*3/4.toFloat())
-        path.lineTo(width/ 4.toFloat(), height/2.toFloat())
-        path.close()
+        setPaintStyle(false)
+        path.moveTo(0f,0f)
+        path.cubicTo(0f,0f,width.toFloat()/2,height.toFloat(),width.toFloat(),0f)
         canvas.drawPath(path, mPaint)
     }
 

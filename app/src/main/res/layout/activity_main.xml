@@ -1,59 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="#000000"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:text="样例" />
 
-        <cn.cxy.customviews.RectView
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
-
-        <cn.cxy.customviews.CircleView
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
-
-        <cn.cxy.customviews.TriangleView
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
-
-        <cn.cxy.customviews.SectorView
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
-
-        <cn.cxy.customviews.ArcView2
-            android:layout_width="50dp"
-            android:layout_height="20dp" />
-
-        <cn.cxy.customviews.StarView
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
-
-        <cn.cxy.customviews.StarView2
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
-
-        <cn.cxy.customviews.StarViewWithAnimation1
-            android:layout_width="100dp"
-            android:layout_height="100dp" />
-
-        <cn.cxy.customviews.StarViewWithAnimation2
-            android:layout_width="100dp"
-            android:layout_height="100dp" />
-
-        <cn.cxy.customviews.DiamondView2
-            android:layout_width="30dp"
-            android:layout_height="30dp" />
-
-        <cn.cxy.customviews.DiamondView
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
-    </LinearLayout>
-</ScrollView>
+    <Button
+        android:id="@+id/runningLineBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="奔跑的线段" />
+</LinearLayout>

@@ -1,9 +1,9 @@
-package cn.cxy.customviews
+package cn.cxy.customviews.misc
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.TypedValue
 import android.view.View
+import cn.cxy.customviews.util.dp2Px
 
 open class BaseView(context: Context, attrs: AttributeSet? = null) : View(context, attrs) {
     private var defaultSize = 200F

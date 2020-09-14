@@ -1,4 +1,4 @@
-package cn.cxy.customviews
+package cn.cxy.customviews.misc
 
 import android.content.Context
 import android.graphics.Canvas
@@ -7,23 +7,18 @@ import android.graphics.Paint
 import android.graphics.Rect
 import android.util.AttributeSet
 import android.view.View
-import java.util.*
 
-class CustomTextViewWithClick(context: Context?, attrs: AttributeSet? = null) :
-    View(context, attrs) {
-    private var mTextViewString = "$1000,0000"
+class CustomTextView(context: Context?, attrs: AttributeSet? = null) : View(context, attrs) {
+    private val mTextViewString = "$1000,0000"
     private val mTextViewColor = Color.parseColor("#0000FF")
     private val mTextViewSize = 100
     private val mTextViewPaint: Paint = Paint()
     private val mTextViewBound: Rect
-    private var mWidthMeasureSpec: Int = 0
-    private var mHeightMeasureSpec: Int = 0
 
     init {
         mTextViewPaint.textSize = mTextViewSize.toFloat()
         mTextViewBound = Rect()
         mTextViewPaint.getTextBounds(mTextViewString, 0, mTextViewString.length, mTextViewBound)
-        setOnClickListener { changeText() }
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -43,16 +38,16 @@ class CustomTextViewWithClick(context: Context?, attrs: AttributeSet? = null) :
         )
     }
 
-
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        mWidthMeasureSpec = widthMeasureSpec
-        mHeightMeasureSpec = heightMeasureSpec
-        setMeasuredDimension(getWidth(mWidthMeasureSpec), getHeight(mHeightMeasureSpec))
+        val widthMode = MeasureSpec.getMode(widthMeasureSpec) //得到布局文件中宽高设置的类型
+        val heightMode = MeasureSpec.getMode(heightMeasureSpec)
+        val myWidth = setWidth(widthMode, widthMeasureSpec)
+        val myHeight = setHeight(heightMode, heightMeasureSpec)
+        setMeasuredDimension(myWidth, myHeight)
     }
 
-    private fun getWidth(widthMeasureSpec: Int): Int {
-        val widthMode = MeasureSpec.getMode(mWidthMeasureSpec)
+    private fun setWidth(widthMode: Int, widthMeasureSpec: Int): Int {
         return if (widthMode == MeasureSpec.EXACTLY) {
             widthMeasureSpec
         } else {
@@ -60,18 +55,11 @@ class CustomTextViewWithClick(context: Context?, attrs: AttributeSet? = null) :
         }
     }
 
-    private fun getHeight(heightMeasureSpec: Int): Int {
-        val heightMode = MeasureSpec.getMode(mHeightMeasureSpec)
+    private fun setHeight(heightMode: Int, heightMeasureSpec: Int): Int {
         return if (heightMode == MeasureSpec.EXACTLY) {
             heightMeasureSpec
         } else {
             mTextViewBound.height() + paddingTop + paddingBottom
         }
-    }
-
-    private fun changeText() {
-        val random = Random()
-        mTextViewString = "$" + random.nextLong()
-        postInvalidate()
     }
 }

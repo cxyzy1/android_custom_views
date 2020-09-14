@@ -1,33 +1,19 @@
 package cn.cxy.customviews
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_main2.*
+import cn.cxy.customviews.misc.MiscActivity
+import cn.cxy.customviews.runningline.RunningLineActivity
+import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main2)
+        setContentView(R.layout.activity_main)
+        button.setOnClickListener { startActivity(Intent(this, MiscActivity::class.java)) }
+        runningLineBtn.setOnClickListener { startActivity(Intent(this, RunningLineActivity::class.java)) }
 
-        startRunning()
-
-        startBtn.setOnClickListener { startRunning() }
-        stopBtn.setOnClickListener { runningLineView.stop() }
-    }
-
-    private fun startRunning() {
-        val gradientColors = intArrayOf(
-            resources.getColor(R.color.color1),
-            resources.getColor(R.color.color2),
-            resources.getColor(R.color.color3)
-        )
-        runningLineView
-            .setStartPosition(0.2f, 0f)
-            .setLineWidth(5f)
-            .setGradient(gradientColors)
-            .setStepSize(5)
-            .setLineLength(200f)
-            //            .setLineColorRes(R.color.colorAccent)
-            .start()
     }
 }

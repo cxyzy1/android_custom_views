@@ -1,4 +1,4 @@
-package cn.cxy.customviews
+package cn.cxy.customviews.util
 
 import android.content.Context
 import android.util.TypedValue

@@ -1,13 +1,16 @@
-package cn.cxy.customviews
+package cn.cxy.customviews.runningline
 
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.util.Log
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.Dimension
 import androidx.core.content.ContextCompat
+import cn.cxy.customviews.misc.BaseView
+import cn.cxy.customviews.util.dp2Px
+import cn.cxy.customviews.util.maxValue
+import cn.cxy.customviews.util.minValue
 import java.lang.Math.abs
 
 

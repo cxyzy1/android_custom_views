@@ -1,4 +1,4 @@
-package cn.cxy.customviews
+package cn.cxy.customviews.misc
 
 import android.content.Context
 import android.graphics.*
@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
+import cn.cxy.customviews.util.dp2Px
 
 /**
  * 星形，带模糊效果

@@ -3,12 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <cn.cxy.customviews.RunningLineView
-        android:id="@+id/runningLineView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/bottomLayout"
-        android:layout_margin="10dp" />
+        android:layout_above="@+id/bottomLayout">
+
+        <cn.cxy.customviews.runningline.RunningLineView
+            android:id="@+id/runningLineView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp" />
+        <cn.cxy.customviews.runningline.RunningLineView
+            android:id="@+id/runningLineView2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp" />
+    </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/bottomLayout"

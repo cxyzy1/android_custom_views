@@ -6,10 +6,9 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
-import android.util.TypedValue
 import android.view.View
-import cn.cxy.customviews.dp2Px
-import cn.cxy.customviews.minValue
+import cn.cxy.customviews.util.dp2Px
+import cn.cxy.customviews.util.minValue
 
 class LightSpotView4(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
     private var mPaint = Paint()

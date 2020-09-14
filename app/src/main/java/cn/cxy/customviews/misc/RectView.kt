@@ -1,4 +1,4 @@
-package cn.cxy.customviews
+package cn.cxy.customviews.misc
 
 import android.content.Context
 import android.graphics.*
@@ -6,11 +6,10 @@ import android.util.AttributeSet
 import android.view.View
 
 /**
- * 三角形
+ * 方形
  */
-class TriangleView(context: Context, attrs: AttributeSet?=null) : View(context, attrs) {
+class RectView(context: Context, attrs: AttributeSet?=null) : View(context, attrs) {
     private val mPaint = Paint()
-    private val path = Path()
 
     init {
         //设置实心
@@ -23,19 +22,15 @@ class TriangleView(context: Context, attrs: AttributeSet?=null) : View(context, 
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        drawTriangle(canvas)
+        drawRect(canvas)
     }
 
     /**
-     * 画三角形
+     * 画矩形
      */
-    private fun drawTriangle(canvas: Canvas, isFilled: Boolean = true) {
+    private fun drawRect(canvas: Canvas, isFilled: Boolean = true) {
         setPaintStyle(isFilled)
-        path.moveTo(width.toFloat() / 2, 0f)
-        path.lineTo(width.toFloat(), height.toFloat())
-        path.lineTo(0f, height.toFloat())
-        path.close()
-        canvas.drawPath(path, mPaint)
+        canvas.drawRect(0f, 0f, width.toFloat(), height.toFloat(), mPaint)
     }
 
     private fun setPaintStyle(isFilled: Boolean) {
