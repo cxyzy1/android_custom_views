@@ -1,9 +1,12 @@
 package cn.cxy.customviews.runningline
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatActivity
 import cn.cxy.customviews.R
 import kotlinx.android.synthetic.main.activity_running_line.*
+
 
 class RunningLineActivity : AppCompatActivity() {
     lateinit var gradientColors: IntArray
@@ -18,14 +21,24 @@ class RunningLineActivity : AppCompatActivity() {
 
         startRunning()
 
-        startBtn.setOnClickListener { startRunning() }
-        stopBtn.setOnClickListener { stopRunning() }
     }
 
 
     private fun startRunning() {
-        startRunning(runningLineView)
-        startRunning(runningLineView2)
+        val layoutParams = LinearLayout.LayoutParams(300, 300)
+        layoutParams.setMargins(10, 10, 10, 10)
+        if (flowLayout != null) {
+            flowLayout.removeAllViews()
+        }
+
+//        (0..20).forEach {
+            val runningLineView = RunningLineView(this)
+            runningLineView.layoutParams = layoutParams
+            flowLayout.addView(runningLineView, layoutParams)
+            runningLineView.start()
+//            startRunning(runningLineView)
+//        }
+
     }
 
     private fun startRunning(runningLineView: RunningLineView) {
@@ -37,9 +50,5 @@ class RunningLineActivity : AppCompatActivity() {
             .setLineLength(100f)
             //            .setLineColorRes(R.color.colorAccent)
             .start()
-    }
-
-    private fun stopRunning() {
-        runningLineView.stop()
     }
 }
