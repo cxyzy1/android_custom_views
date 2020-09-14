@@ -27,12 +27,6 @@ class SnowFallView(context: Context, attrs: AttributeSet?) : View(context, attrs
 
     init {
         fallObjects = ArrayList()
-        val snowPaint = Paint()
-        snowPaint.color = Color.WHITE
-        snowPaint.style = Paint.Style.FILL
-        val bitmap = Bitmap.createBitmap(50, 50, Bitmap.Config.ARGB_8888);
-        val bitmapCanvas = Canvas(bitmap);
-        bitmapCanvas.drawCircle(25f, 25f, 25f, snowPaint);
 
         val builder = FallObject.Builder(ContextCompat.getDrawable(context, R.drawable.ic_snow)!!)
         val fallObject = builder.setSpeed(10,true).setSize(50, 50,true).build()
