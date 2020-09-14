@@ -7,7 +7,7 @@
     android:background="#000000"
     tools:context=".MainActivity">
 
-    <cn.cxy.snowfall.t6.FallingView
+    <cn.cxy.snowfall.t4.SnowFallView
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

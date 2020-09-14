@@ -11,7 +11,7 @@ import kotlin.math.min
 /**
  * 圆点飘落
  */
-class FallingView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
+class BallFallView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
     private var viewWidth = 0
     private var viewHeight = 0
     private var mPaint = Paint()

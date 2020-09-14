@@ -1,4 +1,4 @@
-package cn.cxy.snowfall.t3
+package cn.cxy.snowfall.t5
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -8,14 +8,16 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewTreeObserver.OnPreDrawListener
+import androidx.core.content.ContextCompat
 import cn.cxy.snowfall.t6.FallObject
+import cn.cxy.snowfall.R
 import kotlin.math.min
 
 
 /**
- * 大量圆点飘落
+ * 圆点飘落，每次降落前x坐标会改变
  */
-class FallingView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
+class SnowFallView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
     private var mViewWidth = 0
     private var mViewHeight = 0
     private val defaultWidth = 600 //默认宽度
@@ -32,7 +34,9 @@ class FallingView(context: Context, attrs: AttributeSet?) : View(context, attrs)
         val bitmapCanvas = Canvas(bitmap);
         bitmapCanvas.drawCircle(25f, 25f, 25f, snowPaint);
 
-        val fallObject = FallObject.Builder(bitmap).setSpeed(20).build()
+        val builder = FallObject.Builder(ContextCompat.getDrawable(context, R.drawable.ic_snow)!!)
+        val fallObject = builder.setSpeed(10,true).setSize(50, 50,true).build()
+
         addFallObject(fallObject, 50)
     }
 

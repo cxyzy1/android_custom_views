@@ -11,7 +11,7 @@ import kotlin.math.min
 /**
  * 圆点飘落，每次降落前x坐标会改变
  */
-class FallingView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
+class BallFallView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
     private var mViewWidth = 0
     private var mViewHeight = 0
     private var mPaint = Paint()
