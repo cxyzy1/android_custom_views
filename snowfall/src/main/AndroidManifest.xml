@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".desktopSnow.DesktopSnowActivity" />
-        <activity android:name=".SnowActivity" />
+        <activity android:name=".snow.SnowActivity" />
     </application>
 
 </manifest>

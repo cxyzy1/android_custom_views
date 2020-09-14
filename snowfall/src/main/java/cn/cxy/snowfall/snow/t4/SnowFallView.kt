@@ -1,15 +1,12 @@
-package cn.cxy.snowfall.t4
+package cn.cxy.snowfall.snow.t4
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewTreeObserver.OnPreDrawListener
 import androidx.core.content.ContextCompat
-import cn.cxy.snowfall.t6.FallObject
+import cn.cxy.snowfall.snow.t6.FallObject
 import cn.cxy.snowfall.R
 import kotlin.math.min
 

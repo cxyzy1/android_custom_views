@@ -1,10 +1,7 @@
-package cn.cxy.snowfall.t4
+package cn.cxy.snowfall.ballfall.t3
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.Matrix
-import android.graphics.PixelFormat
-import android.graphics.drawable.Drawable
 import java.util.*
 
 class FallObject {
@@ -43,19 +40,9 @@ class FallObject {
         bitmap = builder.bitmap
     }
 
-    class Builder {
+    class Builder(bitmap: Bitmap) {
         var initSpeed: Int
-        var bitmap: Bitmap
-
-        constructor(bitmap: Bitmap) {
-            initSpeed = defaultSpeed
-            this.bitmap = bitmap
-        }
-
-        constructor(drawable: Drawable) {
-            initSpeed = defaultSpeed
-            bitmap = drawableToBitmap(drawable)
-        }
+        val bitmap: Bitmap
 
         /**
          * 设置物体的初始下落速度
@@ -70,55 +57,10 @@ class FallObject {
         fun build(): FallObject {
             return FallObject(this)
         }
-        fun setSize(w: Int, h: Int): Builder {
-            bitmap = changeBitmapSize(bitmap, w, h)
-            return this
-        }
 
-        /**
-         * 改变bitmap的大小
-         * @param bitmap 目标bitmap
-         * @param newW 目标宽度
-         * @param newH 目标高度
-         * @return
-         */
-        fun changeBitmapSize(bitmap: Bitmap, newW: Int, newH: Int): Bitmap {
-            var bitmap = bitmap
-            val oldW = bitmap.width
-            val oldH = bitmap.height
-            // 计算缩放比例
-            val scaleWidth = newW.toFloat() / oldW
-            val scaleHeight = newH.toFloat() / oldH
-            // 取得想要缩放的matrix参数
-            val matrix = Matrix()
-            matrix.postScale(scaleWidth, scaleHeight)
-            // 得到新的图片
-            bitmap = Bitmap.createBitmap(bitmap, 0, 0, oldW, oldH, matrix, true)
-            return bitmap
-        }
-
-        companion object {
-            /**
-             * drawable图片资源转bitmap
-             * @param drawable
-             * @return
-             */
-            fun drawableToBitmap(drawable: Drawable): Bitmap {
-                val bitmap = Bitmap.createBitmap(
-                    drawable.intrinsicWidth,
-                    drawable.intrinsicHeight,
-                    if (drawable.opacity != PixelFormat.OPAQUE) Bitmap.Config.ARGB_8888 else Bitmap.Config.RGB_565
-                )
-                val canvas = Canvas(bitmap)
-                drawable.setBounds(
-                    0,
-                    0,
-                    drawable.intrinsicWidth,
-                    drawable.intrinsicHeight
-                )
-                drawable.draw(canvas)
-                return bitmap
-            }
+        init {
+            initSpeed = defaultSpeed
+            this.bitmap = bitmap
         }
     }
 

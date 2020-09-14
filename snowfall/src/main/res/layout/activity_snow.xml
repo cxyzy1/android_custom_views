@@ -8,7 +8,7 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <cn.cxy.snowfall.t6.SnowFallView
+    <cn.cxy.snowfall.snow.t6.SnowFallView
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

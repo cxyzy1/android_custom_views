@@ -1,12 +1,17 @@
 package cn.cxy.snowfall.desktopSnow
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.drawable.BitmapDrawable
 import android.util.AttributeSet
 import android.view.View
+import androidx.core.graphics.drawable.toBitmap
+import cn.cxy.snowfall.R
 import kotlin.math.min
+
 
 /**
  * 单片雪花飘落
@@ -50,7 +55,8 @@ class SingleSnowFallView(context: Context, attrs: AttributeSet?) : View(context,
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        canvas.drawCircle(snowX, snowY.toFloat(), radius, mPaint)
+        val headBgBmp  = resources.getDrawable(R.drawable.ic_snow2).toBitmap()
+        canvas.drawBitmap(headBgBmp, 0f, snowY.toFloat(), mPaint)
         handler.postDelayed(runnable, intervalTime.toLong()) //间隔一段时间再进行重绘
     }
 

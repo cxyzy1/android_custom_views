@@ -1,14 +1,12 @@
-package cn.cxy.snowfall.t6
+package cn.cxy.snowfall.snow.t5
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewTreeObserver.OnPreDrawListener
 import androidx.core.content.ContextCompat
+import cn.cxy.snowfall.snow.t6.FallObject
 import cn.cxy.snowfall.R
 import kotlin.math.min
 
@@ -28,11 +26,7 @@ class SnowFallView(context: Context, attrs: AttributeSet?) : View(context, attrs
         fallObjects = ArrayList()
 
         val builder = FallObject.Builder(ContextCompat.getDrawable(context, R.drawable.ic_snow)!!)
-        val fallObject = builder
-            .setSpeed(7, true)
-            .setSize(50, 50, true)
-            .setWind(5, true, true)
-            .build()
+        val fallObject = builder.setSpeed(10,true).setSize(50, 50,true).build()
 
         addFallObject(fallObject, 50)
     }

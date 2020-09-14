@@ -1,4 +1,4 @@
-package cn.cxy.snowfall.t2
+package cn.cxy.snowfall.ballfall.t1
 
 import android.content.Context
 import android.graphics.Canvas
@@ -9,11 +9,11 @@ import android.view.View
 import kotlin.math.min
 
 /**
- * 圆点飘落，每次降落前x坐标会改变
+ * 圆点飘落
  */
 class BallFallView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
-    private var mViewWidth = 0
-    private var mViewHeight = 0
+    private var viewWidth = 0
+    private var viewHeight = 0
     private var mPaint = Paint()
     private var snowX = 100f
     private var snowY = 0
@@ -32,8 +32,8 @@ class BallFallView(context: Context, attrs: AttributeSet?) : View(context, attrs
         val height = measureSize(defaultHeight, heightMeasureSpec)
         val width = measureSize(defaultWidth, widthMeasureSpec)
         setMeasuredDimension(width, height)
-        mViewWidth = width
-        mViewHeight = height
+        viewWidth = width
+        viewHeight = height
     }
 
     private fun measureSize(defaultSize: Int, measureSpec: Int): Int {
@@ -57,9 +57,8 @@ class BallFallView(context: Context, attrs: AttributeSet?) : View(context, attrs
     // 重绘线程
     private val runnable = Runnable {
         snowY += 15
-        if (snowY > mViewHeight) { //超出屏幕则重置雪球位置
+        if (snowY > viewHeight) { //超出屏幕则重置雪球位置
             snowY = 0
-            snowX = (50..mViewWidth - 50).random().toFloat()
         }
         invalidate()
     }
