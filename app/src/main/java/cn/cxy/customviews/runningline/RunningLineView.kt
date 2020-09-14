@@ -3,6 +3,7 @@ package cn.cxy.customviews.runningline
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.Log
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.Dimension
@@ -145,28 +146,28 @@ class RunningLineView(context: Context, attrs: AttributeSet? = null) : BaseView(
     // 重绘线程
     private val runnable = Runnable {
         if (isOnTop(mStartPosition.y)) {
-            if (mStartPosition.x <= width) {
+            if (mStartPosition.x <= width && mStartPosition.x + mStepSize < width - mLineWidth / 2) {
                 mStartPosition.x += mStepSize
             } else {
                 mStartPosition.x = width - mLineWidth / 2
                 mStartPosition.y += mStepSize
             }
         } else if (isOnRight(mStartPosition.x)) {
-            if (mStartPosition.y <= height) {
+            if (mStartPosition.y <= height && mStartPosition.y + mStepSize < height - mLineWidth / 2) {
                 mStartPosition.y += mStepSize
             } else {
                 mStartPosition.y = height - mLineWidth / 2
                 mStartPosition.x -= mStepSize
             }
         } else if (isOnBottom(mStartPosition.y)) {
-            if (mStartPosition.x >= 0) {
+            if (mStartPosition.x >= 0 && mStartPosition.x - mStepSize > mLineWidth / 2) {
                 mStartPosition.x -= mStepSize
             } else {
                 mStartPosition.x = mLineWidth / 2
                 mStartPosition.y -= mStepSize
             }
         } else if (isOnLeft(mStartPosition.x)) {
-            if (mStartPosition.y >= 0) {
+            if (mStartPosition.y >= 0 && mStartPosition.y - mStepSize > mLineWidth / 2) {
                 mStartPosition.y -= mStepSize
             } else {
                 mStartPosition.y = mLineWidth / 2
