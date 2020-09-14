@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<cn.cxy.customviews.util.FlowLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/flowLayout"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    android:paddingStart="10dp"
-    android:paddingTop="120dp" />
+    android:orientation="vertical">
+
+    <cn.cxy.customviews.runningline.RunningLineView
+        android:id="@+id/runningLineView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp" />
+</LinearLayout>
