@@ -10,12 +10,41 @@ class PathDrawerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_path_drawer)
-        val points = mutableListOf<PointF>()
-        points.add(PointF(0.1f,0.1f))
-        points.add(PointF(0.9f,0.1f))
-        points.add(PointF(0.1f,0.9f))
-        points.add(PointF(0.9f,0.9f))
-        points.add(PointF(0.1f,0.1f))
+        val points = getPoints1()
         pathDrawerView.start(points)
+    }
+
+    private fun getPoints1(): MutableList<PointF> {
+        val points = mutableListOf<PointF>()
+        points.add(PointF(0.1f, 0.1f))
+        points.add(PointF(0.9f, 0.1f))
+        points.add(PointF(0.1f, 0.9f))
+        points.add(PointF(0.9f, 0.9f))
+        points.add(PointF(0.1f, 0.1f))
+        return points
+    }
+
+    /**
+     * 随机取点
+     */
+    private fun getPoints2(): MutableList<PointF> {
+        val points = mutableListOf<PointF>()
+        (1..9).forEach {
+            points.add(PointF((1..100).random() / 100.toFloat(), (1..100).random() / 100.toFloat()))
+        }
+        return points
+    }
+
+    /**
+     * 五角星
+     */
+    private fun getPoints3(): MutableList<PointF> {
+        val points = mutableListOf<PointF>()
+        points.add(PointF(0.1f, 0.1f))
+        points.add(PointF(0.9f, 0.1f))
+        points.add(PointF(0.1f, 0.9f))
+        points.add(PointF(0.9f, 0.9f))
+        points.add(PointF(0.1f, 0.1f))
+        return points
     }
 }

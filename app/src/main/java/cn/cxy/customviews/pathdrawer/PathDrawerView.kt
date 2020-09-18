@@ -25,7 +25,7 @@ class PathDrawerView(context: Context, attrs: AttributeSet? = null) : BaseView(c
     private val mIntervalTime = 10
 
     //线段宽度
-    private var mLineWidth = dp2Px(context, 4f).toInt()
+    private var mLineWidth = dp2Px(context, 2f).toInt()
 
     //每次移动的距离
     private var mStepSize = 10
@@ -114,12 +114,12 @@ class PathDrawerView(context: Context, attrs: AttributeSet? = null) : BaseView(c
             mSegmentStartIndex++
             updateSegmentStepSize()
 
-//            changeColor()
+            changeColor()
         }
     }
 
     private fun changeColor() {
-        mPaint.color = listOf(Color.BLUE, Color.RED, Color.YELLOW, Color.GREEN).random()
+        mPaint.color = listOf(Color.BLUE, Color.RED, Color.CYAN, Color.GREEN,Color.GRAY,Color.BLACK).random()
     }
 
     private fun updateSegmentStepSize() {
