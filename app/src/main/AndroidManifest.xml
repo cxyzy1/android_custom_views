@@ -19,6 +19,7 @@
         <activity android:name=".misc.MiscActivity" />
         <activity android:name=".runningline.RunningLineActivity" />
         <activity android:name=".runningline.RunningLineActivity2" />
+        <activity android:name=".pathdrawer.PathDrawerActivity" />
     </application>
 
 </manifest>
