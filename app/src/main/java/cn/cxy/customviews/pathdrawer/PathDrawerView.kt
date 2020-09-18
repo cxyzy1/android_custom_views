@@ -113,7 +113,13 @@ class PathDrawerView(context: Context, attrs: AttributeSet? = null) : BaseView(c
             mMiddlePointY = mSegmentEndPoint.y.toFloat()
             mSegmentStartIndex++
             updateSegmentStepSize()
+
+//            changeColor()
         }
+    }
+
+    private fun changeColor() {
+        mPaint.color = listOf(Color.BLUE, Color.RED, Color.YELLOW, Color.GREEN).random()
     }
 
     private fun updateSegmentStepSize() {

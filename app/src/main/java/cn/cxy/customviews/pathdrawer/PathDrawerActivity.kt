@@ -13,8 +13,8 @@ class PathDrawerActivity : AppCompatActivity() {
         val points = mutableListOf<PointF>()
         points.add(PointF(0.1f,0.1f))
         points.add(PointF(0.9f,0.1f))
-        points.add(PointF(0.9f,0.9f))
         points.add(PointF(0.1f,0.9f))
+        points.add(PointF(0.9f,0.9f))
         points.add(PointF(0.1f,0.1f))
         pathDrawerView.start(points)
     }
