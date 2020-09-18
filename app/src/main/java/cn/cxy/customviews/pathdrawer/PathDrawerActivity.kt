@@ -10,7 +10,7 @@ class PathDrawerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_path_drawer)
-        val points = getPoints3()
+        val points = getPoints4()
         pathDrawerView.start(points)
     }
 
@@ -46,6 +46,30 @@ class PathDrawerActivity : AppCompatActivity() {
         points.add(PointF(0.49f, 0.35f))
         points.add(PointF(0.64f, 0.56f))
         points.add(PointF(0.28f, 0.43f))
+        return points
+    }
+
+    /**
+     * 圣诞树
+     */
+    private fun getPoints4(): MutableList<PointF> {
+        val points = mutableListOf<PointF>()
+        points.add(PointF(0.47f,0.32f))
+        points.add(PointF(0.32f,0.39f))
+        points.add(PointF(0.39f,0.39f))
+        points.add(PointF(0.27f,0.46f))
+        points.add(PointF(0.37f,0.46f))
+        points.add(PointF(0.25f,0.53f))
+        points.add(PointF(0.46f,0.53f))
+        points.add(PointF(0.46f,0.61f))
+        points.add(PointF(0.49f,0.61f))
+        points.add(PointF(0.49f,0.54f))
+        points.add(PointF(0.69f,0.54f))
+        points.add(PointF(0.6f,0.47f))
+        points.add(PointF(0.65f,0.47f))
+        points.add(PointF(0.55f,0.4f))
+        points.add(PointF(0.61f,0.4f))
+        points.add(PointF(0.47f,0.32f))
         return points
     }
 }
