@@ -18,7 +18,6 @@ import kotlin.math.sqrt
  * 动态画各种线
  */
 class PathDrawerView(context: Context, attrs: AttributeSet? = null) : BaseView(context, attrs) {
-    private lateinit var mCanvas: Canvas
     private val mPaint = Paint()
     private val mPath = Path()
 
@@ -34,14 +33,18 @@ class PathDrawerView(context: Context, attrs: AttributeSet? = null) : BaseView(c
     //是否开始绘制并定时刷新
     private var mRunFlag = false
 
-    var list = mutableListOf<Point>()
-    var currentIndex = 0
+    var pointList = mutableListOf<Point>()
+    var segmentStartIndex = 0
+    var mStepSizeX = 0F
+    var mStepSizeY = 0F
+    var middlePointX = 0F
+    var middlePointY = 0F
 
     init {
-        list.add(Point(mLineWidth / 2, 0))
-        list.add(Point(mLineWidth / 2, 1000))
-        list.add(Point(800, 400))
-        list.add(Point(900, 1600))
+        pointList.add(Point(mLineWidth / 2, 0))
+        pointList.add(Point(mLineWidth / 2, 1000))
+        pointList.add(Point(800, 400))
+        pointList.add(Point(900, 1600))
         //设置实心
         mPaint.style = Paint.Style.STROKE
         //设置颜色
@@ -52,52 +55,30 @@ class PathDrawerView(context: Context, attrs: AttributeSet? = null) : BaseView(c
         mPaint.isAntiAlias = true
     }
 
-    var segmentStartIndex = 0
-    var offset = 0F
-    var mStepSizeX = 0F
-    var mStepSizeY = 0F
-    var middlePointX = 0F
-    var middlePointY = 0F
-    lateinit var mSegmentStartPoint: Point
-    lateinit var mSegmentEndPoint: Point
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
-        mCanvas = canvas
-        mPath.reset()
+        if (pointList.size > 1) {
+            mPath.reset()
 
-        mPath.moveTo(list[0].x.toFloat(), list[0].y.toFloat())
-//        currentIndex = list.size - 1
-        for (i in 1..segmentStartIndex) {
-            mPath.lineTo(list[i].x.toFloat(), list[i].y.toFloat())
-        }
+            mPath.moveTo(pointList[0].x.toFloat(), pointList[0].y.toFloat())
+            for (i in 1..segmentStartIndex) {
+                mPath.lineTo(pointList[i].x.toFloat(), pointList[i].y.toFloat())
+            }
 
-        mPath.lineTo(middlePointX, middlePointY)
+            mPath.lineTo(middlePointX, middlePointY)
 
-        mCanvas.drawPath(mPath, mPaint)
-        if (mRunFlag) {
-            handler.postDelayed(runnable, mIntervalTime.toLong())
+            canvas.drawPath(mPath, mPaint)
+            if (mRunFlag) {
+                handler.postDelayed(runnable, mIntervalTime.toLong())
+            }
         }
     }
 
     // 重绘线程
     private val runnable = Runnable {
-        mSegmentStartPoint = list[segmentStartIndex]
-        mSegmentEndPoint = list[segmentStartIndex + 1]
-        middlePointX += mStepSizeX
-        middlePointY += mStepSizeY
-
-        if (abs(middlePointX - mSegmentStartPoint.x) >= abs(mSegmentEndPoint.x - mSegmentStartPoint.x)
-            && abs(middlePointY - mSegmentStartPoint.y) >= abs(mSegmentEndPoint.y - mSegmentStartPoint.y)
-        ) {
-            middlePointX = mSegmentEndPoint.x.toFloat()
-            middlePointY = mSegmentEndPoint.y.toFloat()
-            segmentStartIndex++
-
-            updateSegmentStepSize()
-        }
-
-        if (segmentStartIndex >= list.size - 1) {
+        changeMiddlePoint()
+        if (segmentStartIndex >= pointList.size - 1) {
             mRunFlag = false
         } else {
             invalidate()
@@ -106,32 +87,38 @@ class PathDrawerView(context: Context, attrs: AttributeSet? = null) : BaseView(c
 
     fun start() {
         post {
-            mSegmentStartPoint = list[segmentStartIndex]
-            mSegmentEndPoint = list[segmentStartIndex + 1]
-            middlePointX = mSegmentStartPoint.x.toFloat()
-            middlePointY = mSegmentStartPoint.y.toFloat()
+            middlePointX = pointList[0].x.toFloat()
+            middlePointY = pointList[0].y.toFloat()
             updateSegmentStepSize()
-            middlePointX += mStepSizeX
-            middlePointY += mStepSizeY
-            if (abs(middlePointX - mSegmentStartPoint.x) >= abs(mSegmentEndPoint.x - mSegmentStartPoint.x)
-                && abs(middlePointY - mSegmentStartPoint.y) >= abs(mSegmentEndPoint.y - mSegmentStartPoint.y)
-            ) {
-                middlePointX = mSegmentEndPoint.x.toFloat()
-                middlePointY = mSegmentEndPoint.y.toFloat()
-                segmentStartIndex++
-                updateSegmentStepSize()
-            }
+            changeMiddlePoint()
 
             mRunFlag = true
             invalidate()
         }
     }
 
+    /**
+     * 改变当前线段的中间点的位置
+     */
+    private fun changeMiddlePoint() {
+        val mSegmentStartPoint = pointList[segmentStartIndex]
+        val mSegmentEndPoint = pointList[segmentStartIndex + 1]
+        middlePointX += mStepSizeX
+        middlePointY += mStepSizeY
+        if (abs(middlePointX - mSegmentStartPoint.x) >= abs(mSegmentEndPoint.x - mSegmentStartPoint.x)
+            && abs(middlePointY - mSegmentStartPoint.y) >= abs(mSegmentEndPoint.y - mSegmentStartPoint.y)
+        ) {
+            middlePointX = mSegmentEndPoint.x.toFloat()
+            middlePointY = mSegmentEndPoint.y.toFloat()
+            segmentStartIndex++
+            updateSegmentStepSize()
+        }
+    }
 
     private fun updateSegmentStepSize() {
-        if (segmentStartIndex < list.size - 1) {
-            val segmentStartPoint = list[segmentStartIndex]
-            val segmentEndPoint = list[segmentStartIndex + 1]
+        if (segmentStartIndex < pointList.size - 1) {
+            val segmentStartPoint = pointList[segmentStartIndex]
+            val segmentEndPoint = pointList[segmentStartIndex + 1]
             val pointsDistance = getDistance(segmentEndPoint, segmentStartPoint)
             val ratio = mStepSize / pointsDistance
             mStepSizeX = (ratio * (segmentEndPoint.x - segmentStartPoint.x)).toFloat()
