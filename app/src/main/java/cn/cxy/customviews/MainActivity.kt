@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import cn.cxy.customviews.misc.MiscActivity
 import cn.cxy.customviews.pathdrawer.PathDrawerActivity
+import cn.cxy.customviews.runningline.RunningLineActivity
 import cn.cxy.customviews.runningline.RunningLineActivity2
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -13,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         button.setOnClickListener { startActivity(Intent(this, MiscActivity::class.java)) }
-        runningLineBtn.setOnClickListener { startActivity(Intent(this, RunningLineActivity2::class.java)) }
+        runningLineBtn.setOnClickListener { startActivity(Intent(this, RunningLineActivity::class.java)) }
         pathDrawerBtn.setOnClickListener { startActivity(Intent(this, PathDrawerActivity::class.java)) }
     }
 }

@@ -21,11 +21,10 @@ class RunningLineActivity2 : AppCompatActivity() {
         startRunning()
     }
 
-
     private fun startRunning() {
         val layoutParams = LinearLayout.LayoutParams(300, 300)
         layoutParams.setMargins(20, 20, 20, 20)
-        repeat((0..8).count()) {
+        repeat((0..5).count()) {
             val runningLineView = RunningLineView(this)
             runningLineView.layoutParams = layoutParams
             flowLayout.addView(runningLineView, layoutParams)
