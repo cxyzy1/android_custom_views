@@ -4,4 +4,5 @@ include ':qqstepview'
 include ':waveprogress'
 include ':snowfall'
 include ':app'
+include ':stars'
 rootProject.name = "CustomViews"
