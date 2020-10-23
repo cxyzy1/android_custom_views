@@ -6,6 +6,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 
 class LightSpotViewWithAnimation(context: Context?, attrs: AttributeSet?=null) : View(context, attrs) {
@@ -40,6 +41,11 @@ class LightSpotViewWithAnimation(context: Context?, attrs: AttributeSet?=null) :
         setRadiusSizes(minSize)
     }
 
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        mPaint.maskFilter = BlurMaskFilter(blurRadius, BlurMaskFilter.Blur.NORMAL)
+    }
+
     private fun startMeasure(msSpec: Int): Int {
         val mode = MeasureSpec.getMode(msSpec)
         val size = MeasureSpec.getSize(msSpec)
@@ -52,7 +58,6 @@ class LightSpotViewWithAnimation(context: Context?, attrs: AttributeSet?=null) :
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        mPaint.maskFilter = BlurMaskFilter(blurRadius, BlurMaskFilter.Blur.NORMAL)
 
         canvas.drawCircle(centerX, centerY, radius, mPaint)
         // 隔一段时间重绘一次, 动画效果
